@@ -305,7 +305,7 @@ namespace TranslateTool
                 int prevLineIndex = richTextBox1.GetFirstCharIndexFromLine(currentIndex - 1);
                 if (prevLineIndex >= 0)
                 {
-                    string pattern = @"(?<=\=\s*[\'""])[^\'""]+(?=[\'""])";
+                    string pattern = @"(?<=\=\s*[\'""])(?:[^\'""\\]|\\.)+(?=[\'""])";
                     Match match = Regex.Match(richTextBox1.Text.Substring(prevLineIndex, endLineIndex - prevLineIndex), pattern);
                     if (match.Success)
                     {
@@ -329,7 +329,7 @@ namespace TranslateTool
             int currentIndex = richTextBox1.GetLineFromCharIndex(richTextBox1.SelectionStart);
             int endLineIndex = richTextBox1.GetFirstCharIndexFromLine(currentIndex + 1);
             if (endLineIndex == -1 || endLineIndex >= richTextBox1.Text.Length) return;
-            string pattern = @"(?<=\=\s*[\'""])[^\'""]+(?=[\'""])";
+            string pattern = @"(?<=\=\s*[\'""])(?:[^\'""\\]|\\.)+(?=[\'""])";
             Match match = Regex.Match(richTextBox1.Text.Substring(endLineIndex), pattern);
             if (match.Success)
             {
