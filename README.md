@@ -2,8 +2,27 @@
 
 This is a simple tool for translating Lua files using Google Translate. The tool is written in C# using the .NET Framework.
 
+------------
 ## Preview
-Streamable: [View](https://streamable.com/136d2v "View")
+Streamable (v1.1.0): [View](https://streamable.com/l38yit "View")
+
+Streamable (v1.0.0): [View](https://streamable.com/136d2v "View")
+
+------------
+
+### Changelogs v1.1
+
+- Added “Prev” & “Next” buttons: Allows users to navigate back or forward and select values from a LUA table.
+- Added “Copy” button: Enables users to copy translations from Google Translate.
+- Added “Clear Highlight” button: Clears text highlights made with “Prev/Next” buttons.
+- Added “Start Macro” button and a text box: Lets users set how many times the Macro should perform its tasks.
+- Added “Close Ad” button: Closes the floating window to download Google Chrome.
+- Added “Refresh” button: Refreshes the translation page.
+- Added “Hide” button: Hides the translation page.
+- Added “Show” button: Displays the translation page.
+- Added automatic backup system: Makes a backup of your modifications in the file “%Temp%\LuaTranslateTool\backup_time_date.lua” when the "RichTextBox Text Changed" event is triggered.
+
+------------
 
 ## Prerequisites
 
