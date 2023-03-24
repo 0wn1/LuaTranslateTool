@@ -295,28 +295,28 @@ namespace TranslateTool
             button13.Enabled = false;
             button14.Enabled = false;
         }
+
         private void button8_Click(object sender, EventArgs e)
         {
             try
             {
-                int currentIndex = richTextBox1.GetLineFromCharIndex(richTextBox1.SelectionStart);
-                int endLineIndex = richTextBox1.GetFirstCharIndexFromLine(currentIndex + 1);
-                if (endLineIndex == -1) endLineIndex = richTextBox1.Text.Length;
-                int prevLineIndex = richTextBox1.GetFirstCharIndexFromLine(currentIndex - 1);
-                if (prevLineIndex >= 0)
+                // get the current cursor position
+                int searchStart = richTextBox1.SelectionStart;
+
+                string pattern = @"(?<=\=\s*[\'""])(?:[^\'""\\]|\\.)+(?=[\'""])";
+                MatchCollection matches = Regex.Matches(richTextBox1.Text.Substring(0, searchStart), pattern);
+                if (matches.Count > 0)
                 {
-                    string pattern = @"(?<=\=\s*[\'""])(?:[^\'""\\]|\\.)+(?=[\'""])";
-                    Match match = Regex.Match(richTextBox1.Text.Substring(prevLineIndex, endLineIndex - prevLineIndex), pattern);
-                    if (match.Success)
-                    {
-                        int index = prevLineIndex + match.Index;
-                        string value = match.Value;
-                        richTextBox1.SelectAll();
-                        richTextBox1.SelectionBackColor = richTextBox1.BackColor;
-                        richTextBox1.DeselectAll();
-                        richTextBox1.Select(index, value.Length);
-                        richTextBox1.SelectionBackColor = Color.Yellow;
-                    }
+                    Match match = matches[matches.Count - 1];
+                    int index = match.Index;
+                    string value = match.Value;
+                    richTextBox1.SelectAll();
+                    richTextBox1.SelectionBackColor = richTextBox1.BackColor;
+                    richTextBox1.DeselectAll();
+                    richTextBox1.Select(index, value.Length);
+                    richTextBox1.SelectionBackColor = Color.Yellow;
+
+                    richTextBox1.ScrollToCaret();
                 }
             }
             catch (ArgumentOutOfRangeException ex)
@@ -326,20 +326,20 @@ namespace TranslateTool
         }
         private void button9_Click(object sender, EventArgs e)
         {
-            int currentIndex = richTextBox1.GetLineFromCharIndex(richTextBox1.SelectionStart);
-            int endLineIndex = richTextBox1.GetFirstCharIndexFromLine(currentIndex + 1);
-            if (endLineIndex == -1 || endLineIndex >= richTextBox1.Text.Length) return;
+            int searchStart = richTextBox1.SelectionStart;
+
             string pattern = @"(?<=\=\s*[\'""])(?:[^\'""\\]|\\.)+(?=[\'""])";
-            Match match = Regex.Match(richTextBox1.Text.Substring(endLineIndex), pattern);
+            Match match = Regex.Match(richTextBox1.Text.Substring(searchStart), pattern);
             if (match.Success)
             {
-                int index = endLineIndex + match.Index;
+                int index = searchStart + match.Index;
                 string value = match.Value;
                 richTextBox1.SelectAll();
                 richTextBox1.SelectionBackColor = richTextBox1.BackColor;
                 richTextBox1.DeselectAll();
                 richTextBox1.Select(index, value.Length);
                 richTextBox1.SelectionBackColor = Color.Yellow;
+                richTextBox1.ScrollToCaret();
             }
         }
         private async void RemoveElement()
@@ -379,6 +379,18 @@ namespace TranslateTool
         private async void button14_Click(object sender, EventArgs e)
         {
             await webView21.CoreWebView2.ExecuteScriptAsync(@"document.querySelector('body#yDmH0d>c-wiz>div>div:nth-of-type(2)>c-wiz>div:nth-of-type(2)>c-wiz>div>div:nth-of-type(2)>div:nth-of-type(3)>c-wiz:nth-of-type(2)>div>div:nth-of-type(8)>div>div:nth-of-type(4)>div:nth-of-type(2)>span:nth-of-type(2)>button>div:nth-of-type(3)').click();");
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            int totalLines = richTextBox1.Lines.Length;
+            int currentLineIndex = richTextBox1.GetLineFromCharIndex(richTextBox1.SelectionStart);
+            int remainingLines = totalLines - currentLineIndex;
+
+            if (numericUpDown1.Value >= remainingLines)
+            {
+                numericUpDown1.Value = remainingLines;
+            }
         }
     }
 }

@@ -344,10 +344,12 @@
             // 
             numericUpDown1.Anchor = AnchorStyles.Top;
             numericUpDown1.Location = new Point(434, 41);
+            numericUpDown1.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(57, 23);
             numericUpDown1.TabIndex = 23;
             numericUpDown1.TextAlign = HorizontalAlignment.Center;
+            numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
             // 
             // Form1
             // 
