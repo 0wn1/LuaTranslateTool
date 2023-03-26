@@ -321,7 +321,7 @@
             button15.BackColor = SystemColors.Control;
             button15.Cursor = Cursors.Hand;
             button15.ForeColor = SystemColors.ControlText;
-            button15.Location = new Point(355, 45);
+            button15.Location = new Point(394, 45);
             button15.Name = "button15";
             button15.Size = new Size(78, 25);
             button15.TabIndex = 21;
@@ -331,7 +331,7 @@
             // 
             // numericUpDown1
             // 
-            numericUpDown1.Location = new Point(438, 46);
+            numericUpDown1.Location = new Point(477, 46);
             numericUpDown1.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(57, 23);
@@ -387,9 +387,9 @@
             button10.ForeColor = SystemColors.ControlText;
             button10.Location = new Point(282, 45);
             button10.Name = "button10";
-            button10.Size = new Size(67, 25);
+            button10.Size = new Size(106, 25);
             button10.TabIndex = 27;
-            button10.Text = "Highlight";
+            button10.Text = "Syntax Highlight";
             button10.UseVisualStyleBackColor = false;
             button10.Click += button10_Click;
             // 
