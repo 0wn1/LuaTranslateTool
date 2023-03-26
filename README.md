@@ -4,9 +4,25 @@ This is a simple tool for translating Lua files using Google Translate. The tool
 
 ------------
 ## Preview
+
+Streamable (v1.1.1):  [View](https://streamable.com/fydywa "View")
+
 Streamable (v1.1.0): [View](https://streamable.com/l38yit "View")
 
 Streamable (v1.0.0): [View](https://streamable.com/136d2v "View")
+
+------------
+
+### Changelogs v1.1.1
+
+- Added "Highlight" button: Highlights all text in RichTextBox.
+- Added "Macro delay (Seconds)": Sets an interval in seconds during macro tasks.
+- Added LinkLabel "About": Opens the URL of the Github repository in a web browser.
+- Changed the name of the "Clear Highlight" button to "Clear Selected."
+- Improved web elements on the translation page
+- Improved automation (macro) code.
+- Removed the "Close Ad" button.
+- And some other minor modifications.
 
 ------------
 

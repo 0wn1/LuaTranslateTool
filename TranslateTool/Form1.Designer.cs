@@ -42,7 +42,6 @@
             button7 = new Button();
             button8 = new Button();
             button9 = new Button();
-            button10 = new Button();
             label1 = new Label();
             button11 = new Button();
             button12 = new Button();
@@ -50,15 +49,19 @@
             button14 = new Button();
             button15 = new Button();
             numericUpDown1 = new NumericUpDown();
+            numericUpDown2 = new NumericUpDown();
+            label2 = new Label();
+            linkLabel1 = new LinkLabel();
+            button10 = new Button();
             ((System.ComponentModel.ISupportInitialize)webView21).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             SuspendLayout();
             // 
             // richTextBox1
             // 
             richTextBox1.AcceptsTab = true;
             richTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            richTextBox1.AutoWordSelection = true;
             richTextBox1.BackColor = SystemColors.ControlDark;
             richTextBox1.Cursor = Cursors.IBeam;
             richTextBox1.EnableAutoDragDrop = true;
@@ -92,7 +95,7 @@
             button2.BackColor = SystemColors.Control;
             button2.Cursor = Cursors.Hand;
             button2.ForeColor = SystemColors.ControlText;
-            button2.Location = new Point(671, 289);
+            button2.Location = new Point(671, 286);
             button2.Name = "button2";
             button2.Size = new Size(63, 25);
             button2.TabIndex = 2;
@@ -106,7 +109,7 @@
             button3.BackColor = SystemColors.Control;
             button3.Cursor = Cursors.Hand;
             button3.ForeColor = SystemColors.ControlText;
-            button3.Location = new Point(12, 41);
+            button3.Location = new Point(12, 45);
             button3.Name = "button3";
             button3.Size = new Size(94, 25);
             button3.TabIndex = 3;
@@ -120,7 +123,7 @@
             textBox1.BackColor = SystemColors.Control;
             textBox1.Cursor = Cursors.IBeam;
             textBox1.ForeColor = SystemColors.ControlText;
-            textBox1.Location = new Point(89, 291);
+            textBox1.Location = new Point(100, 288);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(34, 23);
             textBox1.TabIndex = 4;
@@ -146,7 +149,7 @@
             button5.BackColor = SystemColors.Control;
             button5.Cursor = Cursors.Hand;
             button5.ForeColor = SystemColors.ControlText;
-            button5.Location = new Point(112, 41);
+            button5.Location = new Point(112, 45);
             button5.Name = "button5";
             button5.Size = new Size(69, 25);
             button5.TabIndex = 6;
@@ -161,7 +164,7 @@
             button6.BackColor = SystemColors.Control;
             button6.Cursor = Cursors.Hand;
             button6.ForeColor = SystemColors.ControlText;
-            button6.Location = new Point(814, 287);
+            button6.Location = new Point(814, 286);
             button6.Name = "button6";
             button6.Size = new Size(73, 25);
             button6.TabIndex = 7;
@@ -171,10 +174,10 @@
             // 
             // checkBox1
             // 
-            checkBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            checkBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox1.AutoSize = true;
             checkBox1.Cursor = Cursors.Hand;
-            checkBox1.Location = new Point(785, 12);
+            checkBox1.Location = new Point(11, 509);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(102, 19);
             checkBox1.TabIndex = 8;
@@ -218,7 +221,7 @@
             button8.BackColor = SystemColors.Control;
             button8.Cursor = Cursors.Hand;
             button8.ForeColor = SystemColors.ControlText;
-            button8.Location = new Point(523, 289);
+            button8.Location = new Point(523, 286);
             button8.Name = "button8";
             button8.Size = new Size(68, 25);
             button8.TabIndex = 11;
@@ -233,7 +236,7 @@
             button9.BackColor = SystemColors.Control;
             button9.Cursor = Cursors.Hand;
             button9.ForeColor = SystemColors.ControlText;
-            button9.Location = new Point(597, 289);
+            button9.Location = new Point(597, 286);
             button9.Name = "button9";
             button9.Size = new Size(68, 25);
             button9.TabIndex = 12;
@@ -241,28 +244,15 @@
             button9.UseVisualStyleBackColor = false;
             button9.Click += button9_Click;
             // 
-            // button10
-            // 
-            button10.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button10.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            button10.BackColor = SystemColors.Control;
-            button10.Cursor = Cursors.Hand;
-            button10.ForeColor = SystemColors.ControlText;
-            button10.Location = new Point(612, 503);
-            button10.Name = "button10";
-            button10.Size = new Size(66, 25);
-            button10.TabIndex = 14;
-            button10.Text = "Close Ad";
-            button10.UseVisualStyleBackColor = false;
-            button10.Click += button10_Click;
-            // 
             // label1
             // 
             label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
-            label1.Location = new Point(10, 299);
+            label1.BackColor = SystemColors.ControlDarkDark;
+            label1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(11, 294);
             label1.Name = "label1";
-            label1.Size = new Size(73, 15);
+            label1.Size = new Size(83, 17);
             label1.TabIndex = 15;
             label1.Text = "Translate to :";
             // 
@@ -287,11 +277,11 @@
             button12.BackColor = SystemColors.Control;
             button12.Cursor = Cursors.Hand;
             button12.ForeColor = SystemColors.ControlText;
-            button12.Location = new Point(187, 41);
+            button12.Location = new Point(187, 45);
             button12.Name = "button12";
-            button12.Size = new Size(104, 25);
+            button12.Size = new Size(89, 25);
             button12.TabIndex = 17;
-            button12.Text = "Clear Highlight";
+            button12.Text = "Clear Selected";
             button12.UseVisualStyleBackColor = false;
             button12.Click += button12_Click;
             // 
@@ -317,7 +307,7 @@
             button14.BackColor = SystemColors.Control;
             button14.Cursor = Cursors.Hand;
             button14.ForeColor = SystemColors.ControlText;
-            button14.Location = new Point(740, 288);
+            button14.Location = new Point(740, 286);
             button14.Name = "button14";
             button14.Size = new Size(68, 25);
             button14.TabIndex = 20;
@@ -327,14 +317,13 @@
             // 
             // button15
             // 
-            button15.Anchor = AnchorStyles.Top;
             button15.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             button15.BackColor = SystemColors.Control;
             button15.Cursor = Cursors.Hand;
             button15.ForeColor = SystemColors.ControlText;
-            button15.Location = new Point(324, 41);
+            button15.Location = new Point(355, 45);
             button15.Name = "button15";
-            button15.Size = new Size(104, 25);
+            button15.Size = new Size(78, 25);
             button15.TabIndex = 21;
             button15.Text = "Start Macro";
             button15.UseVisualStyleBackColor = false;
@@ -342,14 +331,67 @@
             // 
             // numericUpDown1
             // 
-            numericUpDown1.Anchor = AnchorStyles.Top;
-            numericUpDown1.Location = new Point(434, 41);
+            numericUpDown1.Location = new Point(438, 46);
             numericUpDown1.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(57, 23);
             numericUpDown1.TabIndex = 23;
             numericUpDown1.TextAlign = HorizontalAlignment.Center;
             numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
+            // 
+            // numericUpDown2
+            // 
+            numericUpDown2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            numericUpDown2.Location = new Point(307, 288);
+            numericUpDown2.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
+            numericUpDown2.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+            numericUpDown2.Name = "numericUpDown2";
+            numericUpDown2.Size = new Size(57, 23);
+            numericUpDown2.TabIndex = 24;
+            numericUpDown2.TextAlign = HorizontalAlignment.Center;
+            numericUpDown2.Value = new decimal(new int[] { 2, 0, 0, 0 });
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label2.AutoSize = true;
+            label2.BackColor = SystemColors.ControlDarkDark;
+            label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.ForeColor = SystemColors.ControlText;
+            label2.Location = new Point(152, 294);
+            label2.Name = "label2";
+            label2.Size = new Size(149, 17);
+            label2.TabIndex = 25;
+            label2.Text = "Macro delay (Seconds) :";
+            // 
+            // linkLabel1
+            // 
+            linkLabel1.AccessibleDescription = "";
+            linkLabel1.AccessibleName = "";
+            linkLabel1.AccessibleRole = AccessibleRole.Link;
+            linkLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            linkLabel1.AutoSize = true;
+            linkLabel1.Location = new Point(847, 9);
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.Size = new Size(40, 15);
+            linkLabel1.TabIndex = 26;
+            linkLabel1.TabStop = true;
+            linkLabel1.Text = "About";
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
+            // 
+            // button10
+            // 
+            button10.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            button10.BackColor = SystemColors.Control;
+            button10.Cursor = Cursors.Hand;
+            button10.ForeColor = SystemColors.ControlText;
+            button10.Location = new Point(282, 45);
+            button10.Name = "button10";
+            button10.Size = new Size(67, 25);
+            button10.TabIndex = 27;
+            button10.Text = "Highlight";
+            button10.UseVisualStyleBackColor = false;
+            button10.Click += button10_Click;
             // 
             // Form1
             // 
@@ -359,6 +401,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(900, 532);
+            Controls.Add(button10);
+            Controls.Add(linkLabel1);
+            Controls.Add(label2);
+            Controls.Add(numericUpDown2);
             Controls.Add(numericUpDown1);
             Controls.Add(button15);
             Controls.Add(button14);
@@ -366,7 +412,6 @@
             Controls.Add(button12);
             Controls.Add(button11);
             Controls.Add(label1);
-            Controls.Add(button10);
             Controls.Add(button9);
             Controls.Add(button8);
             Controls.Add(button7);
@@ -387,6 +432,7 @@
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -406,7 +452,6 @@
         private Button button7;
         private Button button8;
         private Button button9;
-        private Button button10;
         private Label label1;
         private Button button11;
         private Button button12;
@@ -414,5 +459,9 @@
         private Button button14;
         private Button button15;
         private NumericUpDown numericUpDown1;
+        private NumericUpDown numericUpDown2;
+        private Label label2;
+        private LinkLabel linkLabel1;
+        private Button button10;
     }
 }
