@@ -1,4 +1,9 @@
-﻿namespace TranslateTool
+﻿using FastColoredTextBoxNS;
+using Microsoft.Win32;
+using System.ComponentModel;
+using System.Globalization;
+
+namespace TranslateTool
 {
     partial class Form1
     {
@@ -28,8 +33,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            richTextBox1 = new RichTextBox();
+            components = new Container();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
@@ -44,7 +49,6 @@
             button9 = new Button();
             label1 = new Label();
             button11 = new Button();
-            button12 = new Button();
             button13 = new Button();
             button14 = new Button();
             button15 = new Button();
@@ -52,28 +56,23 @@
             numericUpDown2 = new NumericUpDown();
             label2 = new Label();
             linkLabel1 = new LinkLabel();
-            button10 = new Button();
-            ((System.ComponentModel.ISupportInitialize)webView21).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
+            fastColoredTextBox1 = new FastColoredTextBox();
+            ((ISupportInitialize)webView21).BeginInit();
+            ((ISupportInitialize)numericUpDown1).BeginInit();
+            ((ISupportInitialize)numericUpDown2).BeginInit();
+            ((ISupportInitialize)fastColoredTextBox1).BeginInit();
+
+            worker.DoWork += Worker_DoWork;
+            worker.WorkerSupportsCancellation = true;
+            navigationCompletedTask = new TaskCompletionSource<bool>();
+            webView21.NavigationCompleted += WebView21_NavigationCompleted;
+            fastColoredTextBox1.SelectionChangedDelayed += fastColoredTextBox_SelectionChanged;
+            fastColoredTextBox1.TextChanged += fastColoredTextBox_TextChanged_1;
+
+            Directory.CreateDirectory(tempPath);
+
+            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
             SuspendLayout();
-            // 
-            // richTextBox1
-            // 
-            richTextBox1.AcceptsTab = true;
-            richTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            richTextBox1.BackColor = SystemColors.ControlDark;
-            richTextBox1.Cursor = Cursors.IBeam;
-            richTextBox1.EnableAutoDragDrop = true;
-            richTextBox1.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            richTextBox1.ForeColor = SystemColors.WindowText;
-            richTextBox1.Location = new Point(12, 72);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(876, 187);
-            richTextBox1.TabIndex = 0;
-            richTextBox1.Text = "";
-            richTextBox1.WordWrap = false;
-            richTextBox1.TextChanged += richTextBox1_TextChanged_1;
             // 
             // button1
             // 
@@ -198,6 +197,7 @@
             webView21.Source = new Uri("https://translate.google.com/", UriKind.Absolute);
             webView21.TabIndex = 9;
             webView21.ZoomFactor = 1D;
+            webView21.NavigationCompleted += WebView21_NavigationCompleted;
             // 
             // button7
             // 
@@ -271,20 +271,6 @@
             button11.UseVisualStyleBackColor = false;
             button11.Click += button11_Click;
             // 
-            // button12
-            // 
-            button12.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            button12.BackColor = SystemColors.Control;
-            button12.Cursor = Cursors.Hand;
-            button12.ForeColor = SystemColors.ControlText;
-            button12.Location = new Point(187, 45);
-            button12.Name = "button12";
-            button12.Size = new Size(89, 25);
-            button12.TabIndex = 17;
-            button12.Text = "Clear Selected";
-            button12.UseVisualStyleBackColor = false;
-            button12.Click += button12_Click;
-            // 
             // button13
             // 
             button13.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -321,7 +307,7 @@
             button15.BackColor = SystemColors.Control;
             button15.Cursor = Cursors.Hand;
             button15.ForeColor = SystemColors.ControlText;
-            button15.Location = new Point(394, 45);
+            button15.Location = new Point(198, 45);
             button15.Name = "button15";
             button15.Size = new Size(78, 25);
             button15.TabIndex = 21;
@@ -331,7 +317,7 @@
             // 
             // numericUpDown1
             // 
-            numericUpDown1.Location = new Point(477, 46);
+            numericUpDown1.Location = new Point(281, 46);
             numericUpDown1.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(57, 23);
@@ -379,19 +365,39 @@
             linkLabel1.Text = "About";
             linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
-            // button10
+            // fastColoredTextBox1
             // 
-            button10.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            button10.BackColor = SystemColors.Control;
-            button10.Cursor = Cursors.Hand;
-            button10.ForeColor = SystemColors.ControlText;
-            button10.Location = new Point(282, 45);
-            button10.Name = "button10";
-            button10.Size = new Size(106, 25);
-            button10.TabIndex = 27;
-            button10.Text = "Syntax Highlight";
-            button10.UseVisualStyleBackColor = false;
-            button10.Click += button10_Click;
+            fastColoredTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            fastColoredTextBox1.AutoCompleteBracketsList = (new char[] { '(', ')', '{', '}', '[', ']', '"', '"', '\'', '\'' });
+            fastColoredTextBox1.AutoIndentCharsPatterns = "\r\n^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>.+)\r\n";
+            fastColoredTextBox1.AutoScrollMinSize = new Size(25, 15);
+            fastColoredTextBox1.BackBrush = null;
+            fastColoredTextBox1.BackColor = Color.DarkGray;
+            fastColoredTextBox1.BorderStyle = BorderStyle.Fixed3D;
+            fastColoredTextBox1.BracketsHighlightStrategy = BracketsHighlightStrategy.Strategy2;
+            fastColoredTextBox1.CharHeight = 15;
+            fastColoredTextBox1.CharWidth = 7;
+            fastColoredTextBox1.CommentPrefix = "--";
+            fastColoredTextBox1.DefaultMarkerSize = 8;
+            fastColoredTextBox1.DisabledColor = Color.FromArgb(100, 180, 180, 180);
+            fastColoredTextBox1.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            fastColoredTextBox1.IndentBackColor = Color.White;
+            fastColoredTextBox1.IsReplaceMode = false;
+            fastColoredTextBox1.Language = Language.Lua;
+            fastColoredTextBox1.LeftBracket = '(';
+            fastColoredTextBox1.LeftBracket2 = '{';
+            fastColoredTextBox1.Location = new Point(11, 88);
+            fastColoredTextBox1.Name = "fastColoredTextBox1";
+            fastColoredTextBox1.Paddings = new Padding(0);
+            fastColoredTextBox1.RightBracket = ')';
+            fastColoredTextBox1.RightBracket2 = '}';
+            fastColoredTextBox1.SelectionColor = Color.FromArgb(60, 0, 0, 255);
+            fastColoredTextBox1.ServiceColors = (ServiceColors)resources.GetObject("fastColoredTextBox1.ServiceColors");
+            fastColoredTextBox1.Size = new Size(877, 178);
+            fastColoredTextBox1.TabIndex = 27;
+            fastColoredTextBox1.Zoom = 100;
+            fastColoredTextBox1.TextChanged += fastColoredTextBox_TextChanged_1;
+            fastColoredTextBox1.SelectionChangedDelayed += fastColoredTextBox_SelectionChanged;
             // 
             // Form1
             // 
@@ -401,7 +407,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(900, 532);
-            Controls.Add(button10);
+            Controls.Add(fastColoredTextBox1);
             Controls.Add(linkLabel1);
             Controls.Add(label2);
             Controls.Add(numericUpDown2);
@@ -409,7 +415,6 @@
             Controls.Add(button15);
             Controls.Add(button14);
             Controls.Add(button13);
-            Controls.Add(button12);
             Controls.Add(button11);
             Controls.Add(label1);
             Controls.Add(button9);
@@ -424,22 +429,22 @@
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
-            Controls.Add(richTextBox1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "LUATranslateTool";
+            FormClosing += Form1_FormClosing;
             Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
+            ((ISupportInitialize)webView21).EndInit();
+            ((ISupportInitialize)numericUpDown1).EndInit();
+            ((ISupportInitialize)numericUpDown2).EndInit();
+            ((ISupportInitialize)fastColoredTextBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private RichTextBox richTextBox1;
         private Button button1;
         private Button button2;
         private Button button3;
@@ -454,7 +459,6 @@
         private Button button9;
         private Label label1;
         private Button button11;
-        private Button button12;
         private Button button13;
         private Button button14;
         private Button button15;
@@ -462,6 +466,12 @@
         private NumericUpDown numericUpDown2;
         private Label label2;
         private LinkLabel linkLabel1;
-        private Button button10;
+        private bool isRunning = false;
+        private BackgroundWorker worker = new BackgroundWorker();
+        private string language = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+        private string tempPath = Path.Combine(Path.GetTempPath(), "LuaTranslateTool");
+        private TaskCompletionSource<bool> navigationCompletedTask;
+        private DateTime lastBackupTime = DateTime.Now;
+        private FastColoredTextBox fastColoredTextBox1;
     }
 }

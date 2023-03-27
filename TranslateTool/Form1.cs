@@ -11,39 +11,15 @@ namespace TranslateTool
 {
     public partial class Form1 : Form
     {
-        private string[] luaTextLines;
-        private bool isRunning = false;
-        private BackgroundWorker worker = new BackgroundWorker();
-        private string language = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-        private string tempPath = Path.Combine(Path.GetTempPath(), "LuaTranslateTool");
-        private TaskCompletionSource<bool> navigationCompletedTask;
-        private DateTime lastBackupTime = DateTime.Now;
-
         public Form1()
         {
-            InitializeComponent();
-            worker.DoWork += Worker_DoWork;
-            worker.WorkerSupportsCancellation = true;
-            navigationCompletedTask = new TaskCompletionSource<bool>();
-            webView21.NavigationCompleted += WebView21_NavigationCompleted;
-            Directory.CreateDirectory(tempPath);
-
-            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-
-            richTextBox1.SelectionChanged += richTextBox1_SelectionChanged;
-            luaTextLines = new string[0];
+        InitializeComponent();
 
             if (string.IsNullOrEmpty(textBox1.Text))
             {
                 textBox1.Text = language;
             }
-        }
-        private void WebView21_NavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
-        {
-            navigationCompletedTask.TrySetResult(true);
-            RemoveElement();
-            ScrollToElement();
+
         }
         private void Form1_FormClosing(object? sender, FormClosingEventArgs e)
         {
@@ -51,6 +27,12 @@ namespace TranslateTool
             {
                 e.Cancel = true;
             }
+        }
+        private void WebView21_NavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
+        {
+            navigationCompletedTask.TrySetResult(true);
+            RemoveElement();
+            ScrollToElement();
         }
         private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
         {
@@ -72,8 +54,6 @@ namespace TranslateTool
             toolTip1.SetToolTip(button8, "Click here to select the previous text for translation.");
             toolTip1.SetToolTip(button9, "Click here to select the next text for translation.");
             toolTip1.SetToolTip(button11, "Click here to show Google Translate.");
-            toolTip1.SetToolTip(button10, "Click here to add Lua syntax highlighting.");
-            toolTip1.SetToolTip(button12, "Click here to remove the highlighted text.");
             toolTip1.SetToolTip(button13, "Click here to refresh the translation page.");
             toolTip1.SetToolTip(button14, "Click here to copy the translated text.");
             toolTip1.SetToolTip(button15, "Click here to start or stop macro tasks.");
@@ -81,7 +61,7 @@ namespace TranslateTool
             toolTip1.SetToolTip(numericUpDown1, "Enter how many times the macro should repeat tasks.");
             toolTip1.SetToolTip(numericUpDown2, "Adjust the interval time in seconds (min. 2, max. 10) to prevent the macro from skipping translations.");
             toolTip1.SetToolTip(checkBox1, "Place this window on top of all other Windows applications.");
-            toolTip1.SetToolTip(linkLabel1, "LUA Translate Tool Version 1.1.1");
+            toolTip1.SetToolTip(linkLabel1, "LUA Translate Tool Version 1.1.2");
 
             button2.Enabled = false;
             button3.Enabled = false;
@@ -90,9 +70,7 @@ namespace TranslateTool
             button6.Enabled = false;
             button8.Enabled = false;
             button9.Enabled = false;
-            button10.Enabled = false;
             button11.Enabled = false;
-            button12.Enabled = false;
             button15.Enabled = false;
         }
         private void button1_Click(object sender, EventArgs e)
@@ -102,11 +80,15 @@ namespace TranslateTool
             openFileDialog1.Title = "Select Lua file";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                richTextBox1.Text = "";
-                luaTextLines = File.ReadAllLines(openFileDialog1.FileName);
-                richTextBox1.Lines = luaTextLines;
+                fastColoredTextBox1.Text = "";
+                string[] luaTextLines = File.ReadAllLines(openFileDialog1.FileName);
+                foreach (string line in luaTextLines)
+                {
+                    fastColoredTextBox1.AppendText(line + "\n");
+                }
             }
         }
+
         private void ToggleWebView21(bool value)
         {
             if (webView21.Visible != value)
@@ -118,7 +100,7 @@ namespace TranslateTool
         {
             ToggleWebView21(true);
             string targetLang = textBox1.Text;
-            string url = $"https://translate.google.com.br/?sl=auto&tl={targetLang}&text={WebUtility.UrlEncode(richTextBox1.SelectedText)}&op=translate";
+            string url = $"https://translate.google.com.br/?sl=auto&tl={targetLang}&text={WebUtility.UrlEncode(fastColoredTextBox1.SelectedText)}&op=translate";
             webView21.Source = new Uri(url);
             button7.Enabled = true;
             button14.Enabled = true;
@@ -153,9 +135,9 @@ namespace TranslateTool
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            if (richTextBox1.SelectedText.Length > 0)
+            if (fastColoredTextBox1.SelectedText.Length > 0)
             {
-                Clipboard.SetText(richTextBox1.SelectedText);
+                Clipboard.SetText(fastColoredTextBox1.SelectedText);
             }
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -177,16 +159,16 @@ namespace TranslateTool
             {
                 using (StreamWriter sw = new StreamWriter(saveFileDialog1.OpenFile()))
                 {
-                    sw.Write(richTextBox1.Text);
+                    sw.Write(fastColoredTextBox1.Text);
                 }
                 MessageBox.Show("File successfully saved!");
                 string argument = "/select, \"" + saveFileDialog1.FileName + "\"";
                 Process.Start("explorer.exe", argument);
             }
         }
-        private void richTextBox1_SelectionChanged(Object? sender, EventArgs e)
+        private void fastColoredTextBox_SelectionChanged(object? sender, EventArgs e)
         {
-            if (richTextBox1.SelectionLength > 0)
+            if (fastColoredTextBox1.SelectionLength > 0)
             {
                 button2.Enabled = true;
                 button3.Enabled = true;
@@ -201,11 +183,11 @@ namespace TranslateTool
         }
         private void button6_Click(object sender, EventArgs e)
         {
-            if (richTextBox1.SelectionLength > 0)
+            if (fastColoredTextBox1.SelectionLength > 0)
             {
                 string clipboardText = Clipboard.GetText();
 
-                richTextBox1.SelectedText = clipboardText;
+                fastColoredTextBox1.SelectedText = clipboardText;
             }
         }
 
@@ -241,35 +223,36 @@ namespace TranslateTool
                     e.Cancel = true;
                     break;
                 }
+                await Task.Delay(200);
                 this.Invoke(new Action(() => button9.PerformClick()));
                 if (worker.CancellationPending)
                 {
                     e.Cancel = true;
                     break;
                 }
+                await Task.Delay(200);
                 this.Invoke(new Action(() => button2.PerformClick()));
                 int macroDelay = Convert.ToInt32(numericUpDown2.Value);
-                Thread.Sleep(macroDelay * 1000);
                 if (worker.CancellationPending)
                 {
                     e.Cancel = true;
                     break;
                 }
                 await navigationCompletedTask.Task;
+                await Task.Delay(macroDelay * 1000);
                 this.Invoke(new Action(() => button14.PerformClick()));
-                Thread.Sleep(200);
                 if (worker.CancellationPending)
                 {
                     e.Cancel = true;
                     break;
                 }
+                await Task.Delay(200);
                 this.Invoke(new Action(() => button6.PerformClick()));
-                Thread.Sleep(200);
 
                 int selectedLine = 0;
-                this.Invoke(new Action(() => selectedLine = richTextBox1.GetLineFromCharIndex(richTextBox1.SelectionStart)));
+                this.Invoke(new Action(() => selectedLine = fastColoredTextBox1.Selection.Start.iLine));
                 int lineCount = 0;
-                this.Invoke(new Action(() => lineCount = richTextBox1.Lines.Length));
+                this.Invoke(new Action(() => lineCount = fastColoredTextBox1.Lines.Count()));
                 if (selectedLine == lineCount - 1)
                 {
                     break;
@@ -288,31 +271,29 @@ namespace TranslateTool
         }
         private void button5_Click(object sender, EventArgs e)
         {
-            if (richTextBox1.TextLength > 0)
+            if (fastColoredTextBox1.TextLength > 0)
             {
-                Clipboard.SetText(richTextBox1.Text);
+                Clipboard.SetText(fastColoredTextBox1.Text);
                 MessageBox.Show("Text copied to clipboard!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-        private void richTextBox1_TextChanged_1(object sender, EventArgs e)
+        private void fastColoredTextBox_TextChanged_1(object? sender, EventArgs e)
         {
-            if (richTextBox1.TextLength > 0)
+            if (fastColoredTextBox1.TextLength > 0)
             {
                 string fileName = $"backup_{DateTime.Now.ToString("HH_mm_dd_MM_yyyy")}.lua";
-                File.WriteAllText(Path.Combine(tempPath, fileName), richTextBox1.Text);
+                File.WriteAllText(Path.Combine(tempPath, fileName), fastColoredTextBox1.Text);
 
                 if ((DateTime.Now - lastBackupTime).TotalMinutes > 2)
                 {
                     lastBackupTime = DateTime.Now;
-                    File.WriteAllText(Path.Combine(tempPath, fileName), richTextBox1.Text);
+                    File.WriteAllText(Path.Combine(tempPath, fileName), fastColoredTextBox1.Text);
                 }
 
                 button4.Enabled = true;
                 button5.Enabled = true;
                 button8.Enabled = true;
                 button9.Enabled = true;
-                button10.Enabled = true;
-                button12.Enabled = true;
                 button15.Enabled = true;
             }
             else
@@ -321,8 +302,6 @@ namespace TranslateTool
                 button5.Enabled = false;
                 button8.Enabled = false;
                 button9.Enabled = false;
-                button10.Enabled = false;
-                button12.Enabled = false;
                 button15.Enabled = false;
             }
         }
@@ -339,22 +318,23 @@ namespace TranslateTool
         {
             try
             {
-                int searchStart = richTextBox1.SelectionStart;
+                int searchStart = fastColoredTextBox1.SelectionStart;
 
                 string pattern = @"(?<=\=\s*[\'""])(?:[^\'""\\]|\\.)+(?=[\'""])";
-                MatchCollection matches = Regex.Matches(richTextBox1.Text.Substring(0, searchStart), pattern);
+                MatchCollection matches = Regex.Matches(fastColoredTextBox1.Text.Substring(0, searchStart), pattern);
                 if (matches.Count > 0)
                 {
                     Match match = matches[matches.Count - 1];
                     int index = match.Index;
                     string value = match.Value;
-                    richTextBox1.SelectAll();
-                    richTextBox1.SelectionBackColor = richTextBox1.BackColor;
-                    richTextBox1.DeselectAll();
-                    richTextBox1.Select(index, value.Length);
-                    richTextBox1.SelectionBackColor = Color.Yellow;
+                    fastColoredTextBox1.SelectAll();
+                    fastColoredTextBox1.SelectionColor = fastColoredTextBox1.BackColor;
+                    fastColoredTextBox1.Selection = new FastColoredTextBoxNS.Range(fastColoredTextBox1);
+                    fastColoredTextBox1.Selection.Start = fastColoredTextBox1.PositionToPlace(index);
+                    fastColoredTextBox1.Selection.End = fastColoredTextBox1.PositionToPlace(index + value.Length);
+                    fastColoredTextBox1.SelectionColor = Color.Yellow;
 
-                    richTextBox1.ScrollToCaret();
+                    fastColoredTextBox1.DoCaretVisible();
                 }
             }
             catch (ArgumentOutOfRangeException ex)
@@ -364,20 +344,22 @@ namespace TranslateTool
         }
         private void button9_Click(object sender, EventArgs e)
         {
-            int searchStart = richTextBox1.SelectionStart;
+            int searchStart = fastColoredTextBox1.SelectionStart;
 
             string pattern = @"(?<=\=\s*[\'""])(?:[^\'""\\]|\\.)+(?=[\'""])";
-            Match match = Regex.Match(richTextBox1.Text.Substring(searchStart), pattern);
+            Match match = Regex.Match(fastColoredTextBox1.Text.Substring(searchStart), pattern);
             if (match.Success)
             {
                 int index = searchStart + match.Index;
                 string value = match.Value;
-                richTextBox1.SelectAll();
-                richTextBox1.SelectionBackColor = richTextBox1.BackColor;
-                richTextBox1.DeselectAll();
-                richTextBox1.Select(index, value.Length);
-                richTextBox1.SelectionBackColor = Color.Yellow;
-                richTextBox1.ScrollToCaret();
+                fastColoredTextBox1.SelectAll();
+
+                fastColoredTextBox1.SelectionColor = fastColoredTextBox1.BackColor;
+                fastColoredTextBox1.Selection = new FastColoredTextBoxNS.Range(fastColoredTextBox1);
+                fastColoredTextBox1.Selection.Start = fastColoredTextBox1.PositionToPlace(index);
+                fastColoredTextBox1.Selection.End = fastColoredTextBox1.PositionToPlace(index + value.Length);
+                fastColoredTextBox1.SelectionColor = Color.Yellow;
+                fastColoredTextBox1.DoCaretVisible();
             }
         }
         private async void RemoveElement()
@@ -391,12 +373,6 @@ namespace TranslateTool
             button11.Enabled = false;
             button13.Enabled = true;
             button14.Enabled = true;
-        }
-        private void button12_Click(object sender, EventArgs e)
-        {
-            richTextBox1.SelectAll();
-            richTextBox1.SelectionBackColor = richTextBox1.BackColor;
-            richTextBox1.DeselectAll();
         }
         private void button13_Click(object sender, EventArgs e)
         {
@@ -417,8 +393,8 @@ namespace TranslateTool
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            int totalLines = richTextBox1.Lines.Length;
-            int currentLineIndex = richTextBox1.GetLineFromCharIndex(richTextBox1.SelectionStart);
+            int totalLines = fastColoredTextBox1.LinesCount;
+            int currentLineIndex = fastColoredTextBox1.Selection.Start.iLine;
             int remainingLines = totalLines - currentLineIndex;
 
             if (numericUpDown1.Value >= remainingLines)
@@ -454,41 +430,6 @@ namespace TranslateTool
                     }
                 }
             }
-        }
-        private void HighlightLuaSyntax()
-        {
-            string keywordsPattern = @"\b(and|break|do|else|elseif|end|false|for|function|if|in|local|nil|not|or|repeat|return|then|true|until|while)\b";
-            string operatorsPattern = @"[+\-*/%^#=<>~]";
-            string commentsPattern = @"--.*?\n";
-            string stringsPattern = @"""[^""\\]*(?:\\.[^""\\]*)*""|'[^'\\]*(?:\\.[^'\\]*)*'";
-            Color keywordsColor = Color.Blue;
-            Color operatorsColor = Color.Gray;
-            Color commentsColor = Color.Green;
-            Color stringsColor = Color.Red;
-            int selectionStart = richTextBox1.SelectionStart;
-            int selectionLength = richTextBox1.SelectionLength;
-            HighlightLuaSyntaxElement(keywordsPattern, keywordsColor);
-            HighlightLuaSyntaxElement(operatorsPattern, operatorsColor);
-            HighlightLuaSyntaxElement(commentsPattern, commentsColor);
-            HighlightLuaSyntaxElement(stringsPattern, stringsColor);
-            richTextBox1.SelectionStart = selectionStart;
-            richTextBox1.SelectionLength = selectionLength;
-        }
-        private void HighlightLuaSyntaxElement(string pattern, Color color)
-        {
-            MatchCollection matches = Regex.Matches(richTextBox1.Text, pattern);
-            foreach (Match match in matches)
-            {
-                richTextBox1.SelectionStart = match.Index;
-                richTextBox1.SelectionLength = match.Length;
-                richTextBox1.SelectionColor = color;
-            }
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-            HighlightLuaSyntax();
-            richTextBox1.ClearUndo();
         }
     }
 }
