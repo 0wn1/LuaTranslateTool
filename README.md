@@ -8,6 +8,12 @@ This is a simple tool for translating Lua files using Google Translate. The tool
 Streamable:  [View](https://streamable.com/8l1jr2 "View")
 
 ------------
+### Prerequisites
+
+- Windows 7+
+- .NET Framework 6.0 or later
+
+------------
 ### Fast Colored TextBox (Text Editor) Hotkeys
 
 The control supports following hotkeys:
@@ -42,12 +48,6 @@ The control supports following hotkeys:
 - Ctrl+(NumpadPlus, NumpadMinus, 0) - zoom in, zoom out, no zoom
 - Ctrl+I - forced AutoIndentChars of current line
 
-------------
-
-### Prerequisites
-
-- Windows 7+
-- .NET Framework 6.0 or later
 
 ------------
 ## License
