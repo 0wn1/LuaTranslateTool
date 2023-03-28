@@ -4,7 +4,13 @@
 This is a simple tool for translating Lua files using Google Translate. The tool is written in C# using the .NET Framework.
 
 ------------
+### Text Editor Shortcut Keys:
+> - Go to line: Ctrl+G
+> - Find dialog: Ctrl+F
+> - Undo: Ctrl+Z, Alt+Backspace
+> - Redo: Ctrl+R
 
+------------
 ### Preview
 Streamable:  [View](https://streamable.com/8l1jr2 "View")
 
