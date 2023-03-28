@@ -5,10 +5,10 @@ This is a simple tool for translating Lua files using Google Translate. The tool
 
 ------------
 ### Text Editor Shortcut Keys:
-> - Go to line: Ctrl+G
-> - Find dialog: Ctrl+F
-> - Undo: Ctrl+Z, Alt+Backspace
-> - Redo: Ctrl+R
+- Go to line: `Ctrl+G`
+- Find dialog: `Ctrl+F`
+- Undo: `Ctrl+Z`, `Alt+Backspace`
+- Redo: `Ctrl+R`
 
 ------------
 ### Preview
@@ -17,8 +17,8 @@ Streamable:  [View](https://streamable.com/8l1jr2 "View")
 ------------
 ### Changelogs v1.1.2
 
-- Implemented FastColoredTextBox text editor
-- Removed the “Clear Selected” and “Syntax Highlight” buttons
+- Implemented `FastColoredTextBox` text editor
+- Removed the `Clear Selected` and `Syntax Highlight` buttons
 - And a few other minor fixes
 
 ------------
@@ -55,6 +55,7 @@ Streamable:  [View](https://streamable.com/8l1jr2 "View")
 - Windows 7+
 - .NET Framework 6.0 or later
 
+------------
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/0wn1/LUATranslateTool/blob/main/LICENSE) file for details.
