@@ -1,4 +1,0 @@
-C:\Users\User\source\repos\TranslateTool\TranslateTool\bin\Release\LUATranslateTool.pdb
-C:\Users\User\source\repos\TranslateTool\TranslateTool\bin\Release\runtimes\win-x86\native\WebView2Loader.dll
-C:\Users\User\source\repos\TranslateTool\TranslateTool\bin\Release\WebView2Loader.dll
-C:\Users\User\source\repos\TranslateTool\TranslateTool\bin\Release\LUATranslateTool.exe
