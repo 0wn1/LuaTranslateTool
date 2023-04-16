@@ -1,0 +1,103 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0/win-x64",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {},
+    ".NETCoreApp,Version=v6.0/win-x64": {
+      "LUATranslateTool/1.1.4": {
+        "dependencies": {
+          "FastColoredTextBox.Net6": "1.0.0",
+          "Microsoft.Web.WebView2": "1.0.1661.34",
+          "MoonSharp": "2.0.0",
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "runtime": {
+          "LUATranslateTool.dll": {}
+        }
+      },
+      "FastColoredTextBox.Net6/1.0.0": {
+        "runtime": {
+          "lib/net6.0-windows7.0/FastColoredTextBox.dll": {
+            "assemblyVersion": "2.16.26.0",
+            "fileVersion": "2.16.26.0"
+          }
+        }
+      },
+      "Microsoft.Web.WebView2/1.0.1661.34": {
+        "runtime": {
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.Core.dll": {
+            "assemblyVersion": "1.0.1661.34",
+            "fileVersion": "1.0.1661.34"
+          },
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.WinForms.dll": {
+            "assemblyVersion": "1.0.1661.34",
+            "fileVersion": "1.0.1661.34"
+          },
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.Wpf.dll": {
+            "assemblyVersion": "1.0.1661.34",
+            "fileVersion": "1.0.1661.34"
+          }
+        },
+        "native": {
+          "runtimes/win-x64/native/WebView2Loader.dll": {
+            "fileVersion": "1.0.1661.34"
+          }
+        }
+      },
+      "MoonSharp/2.0.0": {
+        "runtime": {
+          "lib/netstandard1.6/MoonSharp.Interpreter.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        }
+      },
+      "Newtonsoft.Json/13.0.3": {
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.3.27908"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "LUATranslateTool/1.1.4": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FastColoredTextBox.Net6/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tG7W1g74lddhHiJfrctCY5j6dNUskUc9CXFo3HG3A7u1JqzveUF5sRqSyFlO5LEbcCGXPbdeRap1fecXulQreg==",
+      "path": "fastcoloredtextbox.net6/1.0.0",
+      "hashPath": "fastcoloredtextbox.net6.1.0.0.nupkg.sha512"
+    },
+    "Microsoft.Web.WebView2/1.0.1661.34": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TsLBwso8/7VSSRV6yR8c7ocQM8SgbP1RBVJgbIkr9BnkM5INTT6Jl6v7bJddfIUzggYXspR0/uyTnKRVEnkC1A==",
+      "path": "microsoft.web.webview2/1.0.1661.34",
+      "hashPath": "microsoft.web.webview2.1.0.1661.34.nupkg.sha512"
+    },
+    "MoonSharp/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uiAcRh7d+53k3xW9pFDJfAFVw4RnjHVCJG05M3oPAVEVwPtFavhg1H/IpC6So4X1j9kJlzuLlA3OghhPcIvc5A==",
+      "path": "moonsharp/2.0.0",
+      "hashPath": "moonsharp.2.0.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/13.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
+      "path": "newtonsoft.json/13.0.3",
+      "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
+    }
+  }
+}

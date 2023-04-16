@@ -446,7 +446,7 @@ namespace TranslateTool
             undoToolStripMenuItem.ForeColor = Color.LightGray;
             undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             undoToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+Z";
-            undoToolStripMenuItem.Size = new Size(180, 22);
+            undoToolStripMenuItem.Size = new Size(164, 22);
             undoToolStripMenuItem.Text = "Undo";
             undoToolStripMenuItem.Click += undoToolStripMenuItem_Click;
             // 
@@ -457,7 +457,7 @@ namespace TranslateTool
             redoToolStripMenuItem.ForeColor = Color.LightGray;
             redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             redoToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+Y";
-            redoToolStripMenuItem.Size = new Size(180, 22);
+            redoToolStripMenuItem.Size = new Size(164, 22);
             redoToolStripMenuItem.Text = "Redo";
             redoToolStripMenuItem.Click += redoToolStripMenuItem_Click;
             // 
@@ -468,7 +468,7 @@ namespace TranslateTool
             cutToolStripMenuItem.ForeColor = Color.LightGray;
             cutToolStripMenuItem.Name = "cutToolStripMenuItem";
             cutToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+X";
-            cutToolStripMenuItem.Size = new Size(180, 22);
+            cutToolStripMenuItem.Size = new Size(164, 22);
             cutToolStripMenuItem.Text = "Cut";
             cutToolStripMenuItem.Click += cutToolStripMenuItem_Click;
             // 
@@ -479,7 +479,7 @@ namespace TranslateTool
             copyToolStripMenuItem.ForeColor = Color.LightGray;
             copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             copyToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+C";
-            copyToolStripMenuItem.Size = new Size(180, 22);
+            copyToolStripMenuItem.Size = new Size(164, 22);
             copyToolStripMenuItem.Text = "Copy";
             copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
             // 
@@ -490,7 +490,7 @@ namespace TranslateTool
             pasteToolStripMenuItem.ForeColor = Color.LightGray;
             pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             pasteToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+V";
-            pasteToolStripMenuItem.Size = new Size(180, 22);
+            pasteToolStripMenuItem.Size = new Size(164, 22);
             pasteToolStripMenuItem.Text = "Paste";
             pasteToolStripMenuItem.Click += pasteToolStripMenuItem_Click;
             // 
@@ -501,7 +501,7 @@ namespace TranslateTool
             deleteToolStripMenuItem.ForeColor = Color.LightGray;
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             deleteToolStripMenuItem.ShortcutKeyDisplayString = "Del";
-            deleteToolStripMenuItem.Size = new Size(180, 22);
+            deleteToolStripMenuItem.Size = new Size(164, 22);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
@@ -512,7 +512,7 @@ namespace TranslateTool
             selectAllToolStripMenuItem.ForeColor = Color.LightGray;
             selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
             selectAllToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+A";
-            selectAllToolStripMenuItem.Size = new Size(180, 22);
+            selectAllToolStripMenuItem.Size = new Size(164, 22);
             selectAllToolStripMenuItem.Text = "Select All";
             selectAllToolStripMenuItem.Click += selectAllToolStripMenuItem_Click;
             // 
@@ -639,8 +639,6 @@ namespace TranslateTool
             // 
             // colorToolStripMenuItem
             // 
-            colorToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
-            colorToolStripMenuItem.ForeColor = Color.LightGray;
             colorToolStripMenuItem.Name = "colorToolStripMenuItem";
             colorToolStripMenuItem.Size = new Size(120, 22);
             colorToolStripMenuItem.Text = "Interface";
@@ -663,7 +661,7 @@ namespace TranslateTool
             autoTranslateToolStripMenuItem.Name = "autoTranslateToolStripMenuItem";
             autoTranslateToolStripMenuItem.ShortcutKeyDisplayString = "F5";
             autoTranslateToolStripMenuItem.ShortcutKeys = Keys.F5;
-            autoTranslateToolStripMenuItem.Size = new Size(180, 22);
+            autoTranslateToolStripMenuItem.Size = new Size(168, 22);
             autoTranslateToolStripMenuItem.Text = "Auto Translate";
             autoTranslateToolStripMenuItem.Click += autoTranslateToolStripMenuItem_Click;
             // 
@@ -674,7 +672,7 @@ namespace TranslateTool
             recordMacroToolStripMenuItem.Name = "recordMacroToolStripMenuItem";
             recordMacroToolStripMenuItem.ShortcutKeyDisplayString = "F6";
             recordMacroToolStripMenuItem.ShortcutKeys = Keys.F6;
-            recordMacroToolStripMenuItem.Size = new Size(180, 22);
+            recordMacroToolStripMenuItem.Size = new Size(168, 22);
             recordMacroToolStripMenuItem.Text = "Record Macro";
             recordMacroToolStripMenuItem.Click += recordMacroToolStripMenuItem_Click;
             // 
@@ -685,7 +683,7 @@ namespace TranslateTool
             stopMacroStripMenuItem.Name = "stopMacroStripMenuItem";
             stopMacroStripMenuItem.ShortcutKeyDisplayString = "F7";
             stopMacroStripMenuItem.ShortcutKeys = Keys.F7;
-            stopMacroStripMenuItem.Size = new Size(180, 22);
+            stopMacroStripMenuItem.Size = new Size(168, 22);
             stopMacroStripMenuItem.Text = "Stop Macro";
             stopMacroStripMenuItem.Click += stopMacroStripMenuItem_Click;
             // 
@@ -696,7 +694,7 @@ namespace TranslateTool
             runMacroToolStripMenuItem.Name = "runMacroToolStripMenuItem";
             runMacroToolStripMenuItem.ShortcutKeyDisplayString = "F8";
             runMacroToolStripMenuItem.ShortcutKeys = Keys.F8;
-            runMacroToolStripMenuItem.Size = new Size(180, 22);
+            runMacroToolStripMenuItem.Size = new Size(168, 22);
             runMacroToolStripMenuItem.Text = "Run Macro";
             runMacroToolStripMenuItem.Click += runMacroToolStripMenuItem_Click;
             // 
@@ -714,7 +712,7 @@ namespace TranslateTool
             homeToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
             homeToolStripMenuItem.ForeColor = Color.LightGray;
             homeToolStripMenuItem.Name = "homeToolStripMenuItem";
-            homeToolStripMenuItem.Size = new Size(180, 22);
+            homeToolStripMenuItem.Size = new Size(179, 22);
             homeToolStripMenuItem.Text = "Project Page";
             homeToolStripMenuItem.Click += homeToolStripMenuItem_Click;
             // 
@@ -723,7 +721,7 @@ namespace TranslateTool
             updateStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
             updateStripMenuItem.ForeColor = Color.LightGray;
             updateStripMenuItem.Name = "updateStripMenuItem";
-            updateStripMenuItem.Size = new Size(180, 22);
+            updateStripMenuItem.Size = new Size(179, 22);
             updateStripMenuItem.Text = "Check for updates...";
             updateStripMenuItem.Click += updateStripMenuItem_Click;
             // 
@@ -733,7 +731,7 @@ namespace TranslateTool
             aboutToolStripMenuItem.ForeColor = Color.LightGray;
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             aboutToolStripMenuItem.ShortcutKeys = Keys.F1;
-            aboutToolStripMenuItem.Size = new Size(180, 22);
+            aboutToolStripMenuItem.Size = new Size(179, 22);
             aboutToolStripMenuItem.Text = "About";
             aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
