@@ -92,6 +92,7 @@
             Controls.Add(richTextBox1);
             Controls.Add(button1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
             Name = "Form3";
             ShowIcon = false;
             ShowInTaskbar = false;

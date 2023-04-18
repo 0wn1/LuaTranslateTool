@@ -322,7 +322,10 @@ namespace TranslateTool
             fastColoredTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             fastColoredTextBox1.AutoCompleteBrackets = true;
             fastColoredTextBox1.AutoCompleteBracketsList = (new char[] { '(', ')', '{', '}', '[', ']', '"', '"', '\'', '\'' });
+            fastColoredTextBox1.AutoIndent = false;
+            fastColoredTextBox1.AutoIndentChars = false;
             fastColoredTextBox1.AutoIndentCharsPatterns = "\r\n^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>.+)\r\n";
+            fastColoredTextBox1.AutoIndentExistingLines = false;
             fastColoredTextBox1.AutoScrollMinSize = new Size(25, 15);
             fastColoredTextBox1.AutoSize = true;
             fastColoredTextBox1.AutoValidate = AutoValidate.EnablePreventFocusChange;
@@ -338,6 +341,8 @@ namespace TranslateTool
             fastColoredTextBox1.DefaultMarkerSize = 8;
             fastColoredTextBox1.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             fastColoredTextBox1.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            fastColoredTextBox1.HighlightFoldingIndicator = false;
+            fastColoredTextBox1.HighlightingRangeType = HighlightingRangeType.AllTextRange;
             fastColoredTextBox1.Hotkeys = resources.GetString("fastColoredTextBox1.Hotkeys");
             fastColoredTextBox1.IndentBackColor = Color.FromArgb(64, 64, 64);
             fastColoredTextBox1.IsReplaceMode = false;
@@ -639,6 +644,8 @@ namespace TranslateTool
             // 
             // colorToolStripMenuItem
             // 
+            colorToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
+            colorToolStripMenuItem.ForeColor = Color.LightGray;
             colorToolStripMenuItem.Name = "colorToolStripMenuItem";
             colorToolStripMenuItem.Size = new Size(120, 22);
             colorToolStripMenuItem.Text = "Interface";
@@ -661,7 +668,7 @@ namespace TranslateTool
             autoTranslateToolStripMenuItem.Name = "autoTranslateToolStripMenuItem";
             autoTranslateToolStripMenuItem.ShortcutKeyDisplayString = "F5";
             autoTranslateToolStripMenuItem.ShortcutKeys = Keys.F5;
-            autoTranslateToolStripMenuItem.Size = new Size(168, 22);
+            autoTranslateToolStripMenuItem.Size = new Size(174, 22);
             autoTranslateToolStripMenuItem.Text = "Auto Translate";
             autoTranslateToolStripMenuItem.Click += autoTranslateToolStripMenuItem_Click;
             // 
@@ -672,7 +679,7 @@ namespace TranslateTool
             recordMacroToolStripMenuItem.Name = "recordMacroToolStripMenuItem";
             recordMacroToolStripMenuItem.ShortcutKeyDisplayString = "F6";
             recordMacroToolStripMenuItem.ShortcutKeys = Keys.F6;
-            recordMacroToolStripMenuItem.Size = new Size(168, 22);
+            recordMacroToolStripMenuItem.Size = new Size(174, 22);
             recordMacroToolStripMenuItem.Text = "Record Macro";
             recordMacroToolStripMenuItem.Click += recordMacroToolStripMenuItem_Click;
             // 
@@ -683,8 +690,8 @@ namespace TranslateTool
             stopMacroStripMenuItem.Name = "stopMacroStripMenuItem";
             stopMacroStripMenuItem.ShortcutKeyDisplayString = "F7";
             stopMacroStripMenuItem.ShortcutKeys = Keys.F7;
-            stopMacroStripMenuItem.Size = new Size(168, 22);
-            stopMacroStripMenuItem.Text = "Stop Macro";
+            stopMacroStripMenuItem.Size = new Size(174, 22);
+            stopMacroStripMenuItem.Text = "Stop Recording";
             stopMacroStripMenuItem.Click += stopMacroStripMenuItem_Click;
             // 
             // runMacroToolStripMenuItem
@@ -694,7 +701,7 @@ namespace TranslateTool
             runMacroToolStripMenuItem.Name = "runMacroToolStripMenuItem";
             runMacroToolStripMenuItem.ShortcutKeyDisplayString = "F8";
             runMacroToolStripMenuItem.ShortcutKeys = Keys.F8;
-            runMacroToolStripMenuItem.Size = new Size(168, 22);
+            runMacroToolStripMenuItem.Size = new Size(174, 22);
             runMacroToolStripMenuItem.Text = "Run Macro";
             runMacroToolStripMenuItem.Click += runMacroToolStripMenuItem_Click;
             // 

@@ -14,7 +14,6 @@ namespace TranslateTool
         public Form1()
         {
             InitializeComponent();
-
         }
         private void Form1_FormClosing(object? sender, FormClosingEventArgs e)
         {
@@ -141,13 +140,15 @@ namespace TranslateTool
                 button6.Enabled = false;
             }
         }
-        private void button6_Click(object sender, EventArgs e)
+        private async void button6_Click(object sender, EventArgs e)
         {
             if (fastColoredTextBox1.SelectionLength > 0)
             {
                 string clipboardText = Clipboard.GetText();
 
                 fastColoredTextBox1.SelectedText = clipboardText;
+                await Task.Delay(100);
+                ScrollToElement();
             }
         }
         private void button5_Click(object sender, EventArgs e)
@@ -158,7 +159,6 @@ namespace TranslateTool
                 MessageBox.Show("Text copied to clipboard!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
         private void fastColoredTextBox_TextChanged_1(object? sender, EventArgs e)
         {
             if (fastColoredTextBox1.TextLength > 0)
@@ -171,7 +171,6 @@ namespace TranslateTool
                 toolStripMenuItem2.Enabled = true;
                 saveAsToolStripMenuItem.Enabled = true;
                 undoToolStripMenuItem.Enabled = true;
-                //redoToolStripMenuItem.Enabled = true;
                 cutToolStripMenuItem.Enabled = true;
                 copyToolStripMenuItem.Enabled = true;
                 pasteToolStripMenuItem.Enabled = true;
@@ -301,11 +300,10 @@ namespace TranslateTool
                 webView21.Reload();
             }
         }
-        private async void button14_Click(object sender, EventArgs e)
+        private void button14_Click(object sender, EventArgs e)
         {
-            Form4 form4 = (Form4)Application.OpenForms["Form4"];
-            await navigationCompletedTask.Task;
-            await webView21.CoreWebView2.ExecuteScriptAsync(@"document.querySelector('body#yDmH0d>c-wiz>div>div:nth-of-type(2)>c-wiz>div:nth-of-type(2)>c-wiz>div>div:nth-of-type(2)>div:nth-of-type(3)>c-wiz:nth-of-type(2)>div>div:nth-of-type(8)>div>div:nth-of-type(4)>div:nth-of-type(2)>span:nth-of-type(2)>button>div:nth-of-type(3)').click();");
+            string xpath = "(//button[@jslog='171549; track:JIbuQc;']//div)[3]";
+            webView21.ExecuteScriptAsync($"document.evaluate(\"{xpath}\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();");
         }
         private void newProjectToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
@@ -343,6 +341,7 @@ namespace TranslateTool
                     sw.Write(fastColoredTextBox1.Text);
                 }
                 MessageBox.Show("File successfully saved!");
+                openFileDialog1.FileName = saveFileDialog1.FileName;
                 string argument = "/select, \"" + saveFileDialog1.FileName + "\"";
                 Process.Start("explorer.exe", argument);
             }
@@ -726,7 +725,8 @@ namespace TranslateTool
         {
             if (fastColoredTextBox1.SelectedText.Length > 0)
             {
-                openUrlOnBrowser("https://www.google.com/search?q=" + fastColoredTextBox1.SelectedText);
+                string searchText = fastColoredTextBox1.SelectedText.Replace(" ", "+");
+                openUrlOnBrowser("https://www.google.com/search?q=" + searchText);
             }
         }
 

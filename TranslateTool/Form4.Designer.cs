@@ -114,6 +114,7 @@ namespace LUATranslateTool
             Controls.Add(label2);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
             Name = "Form4";
             ShowIcon = false;
             ShowInTaskbar = false;
