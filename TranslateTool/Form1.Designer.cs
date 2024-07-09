@@ -42,7 +42,6 @@ namespace TranslateTool
             button8 = new Button();
             button9 = new Button();
             label1 = new Label();
-            button14 = new Button();
             fastColoredTextBox1 = new FastColoredTextBox();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
@@ -111,7 +110,7 @@ namespace TranslateTool
             button2.FlatAppearance.BorderSize = 0;
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = Color.LightGray;
-            button2.Location = new Point(668, 344);
+            button2.Location = new Point(742, 345);
             button2.Name = "button2";
             button2.Size = new Size(63, 25);
             button2.TabIndex = 2;
@@ -193,7 +192,7 @@ namespace TranslateTool
             button8.FlatAppearance.BorderSize = 0;
             button8.FlatStyle = FlatStyle.Flat;
             button8.ForeColor = Color.LightGray;
-            button8.Location = new Point(520, 344);
+            button8.Location = new Point(594, 345);
             button8.Name = "button8";
             button8.Size = new Size(68, 25);
             button8.TabIndex = 11;
@@ -210,7 +209,7 @@ namespace TranslateTool
             button9.FlatAppearance.BorderSize = 0;
             button9.FlatStyle = FlatStyle.Flat;
             button9.ForeColor = Color.LightGray;
-            button9.Location = new Point(594, 344);
+            button9.Location = new Point(668, 345);
             button9.Name = "button9";
             button9.Size = new Size(68, 25);
             button9.TabIndex = 12;
@@ -231,33 +230,15 @@ namespace TranslateTool
             label1.TabIndex = 15;
             label1.Text = "Translate to :";
             // 
-            // button14
-            // 
-            button14.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button14.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            button14.BackColor = Color.Gray;
-            button14.Cursor = Cursors.Hand;
-            button14.FlatAppearance.BorderSize = 0;
-            button14.FlatStyle = FlatStyle.Flat;
-            button14.ForeColor = Color.LightGray;
-            button14.Location = new Point(737, 344);
-            button14.Name = "button14";
-            button14.Size = new Size(68, 25);
-            button14.TabIndex = 20;
-            button14.Text = "Copy";
-            button14.UseVisualStyleBackColor = false;
-            button14.Click += button14_Click;
-            // 
             // fastColoredTextBox1
             // 
             fastColoredTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            fastColoredTextBox1.AutoCompleteBrackets = true;
             fastColoredTextBox1.AutoCompleteBracketsList = new char[] { '(', ')', '{', '}', '[', ']', '"', '"', '\'', '\'' };
             fastColoredTextBox1.AutoIndent = false;
             fastColoredTextBox1.AutoIndentChars = false;
             fastColoredTextBox1.AutoIndentCharsPatterns = "\r\n^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>.+)\r\n";
             fastColoredTextBox1.AutoIndentExistingLines = false;
-            fastColoredTextBox1.AutoScrollMinSize = new Size(25, 15);
+            fastColoredTextBox1.AutoScrollMinSize = new Size(2, 15);
             fastColoredTextBox1.AutoSize = true;
             fastColoredTextBox1.AutoValidate = AutoValidate.EnablePreventFocusChange;
             fastColoredTextBox1.BackBrush = null;
@@ -533,7 +514,7 @@ namespace TranslateTool
             expandToolStripMenuItem.Name = "expandToolStripMenuItem";
             expandToolStripMenuItem.ShortcutKeyDisplayString = "";
             expandToolStripMenuItem.ShortcutKeys = Keys.F11;
-            expandToolStripMenuItem.Size = new Size(180, 22);
+            expandToolStripMenuItem.Size = new Size(150, 22);
             expandToolStripMenuItem.Text = "Expand";
             expandToolStripMenuItem.Click += expandToolStripMenuItem_Click;
             // 
@@ -542,7 +523,7 @@ namespace TranslateTool
             alwaysOnTopToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
             alwaysOnTopToolStripMenuItem.ForeColor = Color.LightGray;
             alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-            alwaysOnTopToolStripMenuItem.Size = new Size(180, 22);
+            alwaysOnTopToolStripMenuItem.Size = new Size(150, 22);
             alwaysOnTopToolStripMenuItem.Text = "Always on Top";
             alwaysOnTopToolStripMenuItem.Click += alwaysOnTopToolStripMenuItem_Click;
             // 
@@ -822,7 +803,6 @@ namespace TranslateTool
             Controls.Add(richTextBox1);
             Controls.Add(label2);
             Controls.Add(fastColoredTextBox1);
-            Controls.Add(button14);
             Controls.Add(label1);
             Controls.Add(button9);
             Controls.Add(button8);
@@ -863,7 +843,6 @@ namespace TranslateTool
         private Label label1;
         public Button button11;
         public Button button13;
-        public Button button14;
         private string language = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
         private string tempPath = Path.Combine(Path.GetTempPath(), "LuaTranslateTool");
         public TaskCompletionSource<bool> navigationCompletedTask;

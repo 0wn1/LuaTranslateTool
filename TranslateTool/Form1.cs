@@ -18,7 +18,6 @@ namespace TranslateTool
             string targetLang = textBox1.Text;
             string url = $"https://translate.google.com.br/?sl=auto&tl={targetLang}&text={WebUtility.UrlEncode(fastColoredTextBox1.SelectedText)}&op=translate";
             webView21.Source = new Uri(url);
-            button14.Enabled = true;
             webView21.EnsureCoreWebView2Async();
         }
         private void Form1_FormClosing(object? sender, FormClosingEventArgs e)
@@ -55,7 +54,6 @@ namespace TranslateTool
             toolTip1.SetToolTip(button6, "Click here to replace selected text.");
             toolTip1.SetToolTip(button8, "Click here to select the previous text for translation.");
             toolTip1.SetToolTip(button9, "Click here to select the next text for translation.");
-            toolTip1.SetToolTip(button14, "Click here to copy the translated text.");
             toolTip1.SetToolTip(textBox1, "Enter the target language to be translated (e.g., \"es\" for Spanish).");
 
             button2.Enabled = false;
@@ -75,23 +73,20 @@ namespace TranslateTool
         }
         private async void button2_Click(object sender, EventArgs e)
         {
-            //ToggleWebView21(true);
             string targetLang = textBox1.Text;
             string url = $"https://translate.google.com.br/?sl=auto&tl={targetLang}&text={WebUtility.UrlEncode(fastColoredTextBox1.SelectedText)}&op=translate";
             webView21.Source = new Uri(url);
-            button14.Enabled = true;
-            //await webView21.EnsureCoreWebView2Async();
             string script = @"
-function getTranslatedText() {
-    const element = document.querySelector('.eDXd3b');
-    if (element) {
-        return element.textContent;
-    }
-    const altElement = document.querySelector('.HwtZe');
-    return altElement ? altElement.textContent : '';
-}
-getTranslatedText();
-";
+            function getTranslatedText() {
+                const element = document.querySelector('.eDXd3b');
+                if (element) {
+                    return element.textContent;
+                }
+                const altElement = document.querySelector('.HwtZe');
+                return altElement ? altElement.textContent : '';
+            }
+            getTranslatedText();
+            ";
             string result = "";
             int attempts = 0;
             const int maxAttempts = 10;
@@ -235,7 +230,7 @@ getTranslatedText();
                 }
             };
         }
-        string pattern = @"(?<=\=\s*[\'""])(?:[^\'""\\]|\\.)+(?=[\'""])";
+        string pattern = @"(?<=\=\s*(['""]))((?:\\.|\1\1|(?!\1).)*?)(?=\1)";
         private void button8_Click(object sender, EventArgs e)
         {
             try
@@ -276,13 +271,6 @@ getTranslatedText();
             if (!webView21.IsDisposed)
             {
                 webView21.Reload();
-            }
-        }
-        private void button14_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(richTextBox1.Text))
-            {
-                Clipboard.SetText(richTextBox1.Text);
             }
         }
         private void newProjectToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -475,7 +463,7 @@ getTranslatedText();
             if (!expandToolStripMenuItem.Checked)
             {
                 fastColoredTextBox1.Dock = DockStyle.Fill;
-                richTextBox1.Dock = DockStyle.Fill;
+                richTextBox1.Visible = false;
                 expandToolStripMenuItem.Checked = true;
                 label2.Visible = false;
             }
@@ -492,6 +480,7 @@ getTranslatedText();
                 richTextBox1.Location = new Point(12, 375);
                 richTextBox1.Size = new Size(876, 125);
                 richTextBox1.Dock = DockStyle.None;
+                richTextBox1.Visible = true;
 
                 expandToolStripMenuItem.Checked = false;
                 label2.Visible = true;
