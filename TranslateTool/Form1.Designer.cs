@@ -9,7 +9,7 @@ namespace TranslateTool
         /// <summary>
         ///  Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -39,13 +39,9 @@ namespace TranslateTool
             textBox1 = new TextBox();
             button5 = new Button();
             button6 = new Button();
-            webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
-            button7 = new Button();
             button8 = new Button();
             button9 = new Button();
             label1 = new Label();
-            button11 = new Button();
-            button13 = new Button();
             button14 = new Button();
             fastColoredTextBox1 = new FastColoredTextBox();
             menuStrip1 = new MenuStrip();
@@ -72,7 +68,6 @@ namespace TranslateTool
             viewToolStripMenuItem = new ToolStripMenuItem();
             expandToolStripMenuItem = new ToolStripMenuItem();
             alwaysOnTopToolStripMenuItem = new ToolStripMenuItem();
-            webViewControlsToolStripMenuItem = new ToolStripMenuItem();
             settingsToolStripMenuItem = new ToolStripMenuItem();
             fontToolStripMenuItem = new ToolStripMenuItem();
             colorToolStripMenuItem = new ToolStripMenuItem();
@@ -99,10 +94,12 @@ namespace TranslateTool
             toolStripMenuItem4 = new ToolStripSeparator();
             openFileToolStripMenuItem = new ToolStripMenuItem();
             searchToolStripMenuItem1 = new ToolStripMenuItem();
-            ((ISupportInitialize)webView21).BeginInit();
+            richTextBox1 = new RichTextBox();
+            webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
             ((ISupportInitialize)fastColoredTextBox1).BeginInit();
             menuStrip1.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
+            ((ISupportInitialize)webView21).BeginInit();
             SuspendLayout();
             // 
             // button2
@@ -114,7 +111,7 @@ namespace TranslateTool
             button2.FlatAppearance.BorderSize = 0;
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = Color.LightGray;
-            button2.Location = new Point(668, 284);
+            button2.Location = new Point(668, 344);
             button2.Name = "button2";
             button2.Size = new Size(63, 25);
             button2.TabIndex = 2;
@@ -147,7 +144,7 @@ namespace TranslateTool
             textBox1.Cursor = Cursors.IBeam;
             textBox1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             textBox1.ForeColor = Color.LightGray;
-            textBox1.Location = new Point(91, 294);
+            textBox1.Location = new Point(91, 354);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(34, 16);
             textBox1.TabIndex = 4;
@@ -179,45 +176,13 @@ namespace TranslateTool
             button6.FlatAppearance.BorderSize = 0;
             button6.FlatStyle = FlatStyle.Flat;
             button6.ForeColor = Color.LightGray;
-            button6.Location = new Point(811, 284);
+            button6.Location = new Point(811, 344);
             button6.Name = "button6";
             button6.Size = new Size(73, 25);
             button6.TabIndex = 7;
             button6.Text = "Replace";
             button6.UseVisualStyleBackColor = false;
             button6.Click += button6_Click;
-            // 
-            // webView21
-            // 
-            webView21.AllowExternalDrop = true;
-            webView21.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            webView21.BackColor = SystemColors.ControlDarkDark;
-            webView21.CreationProperties = null;
-            webView21.DefaultBackgroundColor = Color.White;
-            webView21.Location = new Point(12, 315);
-            webView21.Name = "webView21";
-            webView21.Size = new Size(876, 182);
-            webView21.Source = new Uri("https://translate.google.com/", UriKind.Absolute);
-            webView21.TabIndex = 9;
-            webView21.ZoomFactor = 1D;
-            webView21.NavigationCompleted += WebView21_NavigationCompleted;
-            // 
-            // button7
-            // 
-            button7.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button7.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            button7.BackColor = Color.Gray;
-            button7.Cursor = Cursors.Hand;
-            button7.FlatAppearance.BorderSize = 0;
-            button7.FlatStyle = FlatStyle.Flat;
-            button7.ForeColor = Color.LightGray;
-            button7.Location = new Point(825, 503);
-            button7.Name = "button7";
-            button7.Size = new Size(63, 25);
-            button7.TabIndex = 10;
-            button7.Text = "Hide";
-            button7.UseVisualStyleBackColor = false;
-            button7.Click += button7_Click;
             // 
             // button8
             // 
@@ -228,7 +193,7 @@ namespace TranslateTool
             button8.FlatAppearance.BorderSize = 0;
             button8.FlatStyle = FlatStyle.Flat;
             button8.ForeColor = Color.LightGray;
-            button8.Location = new Point(520, 284);
+            button8.Location = new Point(520, 344);
             button8.Name = "button8";
             button8.Size = new Size(68, 25);
             button8.TabIndex = 11;
@@ -245,7 +210,7 @@ namespace TranslateTool
             button9.FlatAppearance.BorderSize = 0;
             button9.FlatStyle = FlatStyle.Flat;
             button9.ForeColor = Color.LightGray;
-            button9.Location = new Point(594, 284);
+            button9.Location = new Point(594, 344);
             button9.Name = "button9";
             button9.Size = new Size(68, 25);
             button9.TabIndex = 12;
@@ -260,45 +225,11 @@ namespace TranslateTool
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             label1.ForeColor = Color.LightGray;
-            label1.Location = new Point(12, 295);
+            label1.Location = new Point(12, 355);
             label1.Name = "label1";
             label1.Size = new Size(73, 15);
             label1.TabIndex = 15;
             label1.Text = "Translate to :";
-            // 
-            // button11
-            // 
-            button11.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button11.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            button11.BackColor = Color.Gray;
-            button11.Cursor = Cursors.Hand;
-            button11.FlatAppearance.BorderSize = 0;
-            button11.FlatStyle = FlatStyle.Flat;
-            button11.ForeColor = Color.LightGray;
-            button11.Location = new Point(756, 503);
-            button11.Name = "button11";
-            button11.Size = new Size(63, 25);
-            button11.TabIndex = 16;
-            button11.Text = "Show";
-            button11.UseVisualStyleBackColor = false;
-            button11.Click += button11_Click;
-            // 
-            // button13
-            // 
-            button13.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button13.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            button13.BackColor = Color.Gray;
-            button13.Cursor = Cursors.Hand;
-            button13.FlatAppearance.BorderSize = 0;
-            button13.FlatStyle = FlatStyle.Flat;
-            button13.ForeColor = Color.LightGray;
-            button13.Location = new Point(684, 503);
-            button13.Name = "button13";
-            button13.Size = new Size(66, 25);
-            button13.TabIndex = 19;
-            button13.Text = "Refresh";
-            button13.UseVisualStyleBackColor = false;
-            button13.Click += button13_Click;
             // 
             // button14
             // 
@@ -309,7 +240,7 @@ namespace TranslateTool
             button14.FlatAppearance.BorderSize = 0;
             button14.FlatStyle = FlatStyle.Flat;
             button14.ForeColor = Color.LightGray;
-            button14.Location = new Point(737, 284);
+            button14.Location = new Point(737, 344);
             button14.Name = "button14";
             button14.Size = new Size(68, 25);
             button14.TabIndex = 20;
@@ -321,7 +252,7 @@ namespace TranslateTool
             // 
             fastColoredTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             fastColoredTextBox1.AutoCompleteBrackets = true;
-            fastColoredTextBox1.AutoCompleteBracketsList = (new char[] { '(', ')', '{', '}', '[', ']', '"', '"', '\'', '\'' });
+            fastColoredTextBox1.AutoCompleteBracketsList = new char[] { '(', ')', '{', '}', '[', ']', '"', '"', '\'', '\'' };
             fastColoredTextBox1.AutoIndent = false;
             fastColoredTextBox1.AutoIndentChars = false;
             fastColoredTextBox1.AutoIndentCharsPatterns = "\r\n^\\s*[\\w\\.]+(\\s\\w+)?\\s*(?<range>=)\\s*(?<range>.+)\r\n";
@@ -357,7 +288,7 @@ namespace TranslateTool
             fastColoredTextBox1.SelectionColor = Color.FromArgb(60, 0, 0, 255);
             fastColoredTextBox1.ServiceColors = (ServiceColors)resources.GetObject("fastColoredTextBox1.ServiceColors");
             fastColoredTextBox1.ShowFoldingLines = true;
-            fastColoredTextBox1.Size = new Size(876, 200);
+            fastColoredTextBox1.Size = new Size(876, 260);
             fastColoredTextBox1.TabIndex = 27;
             fastColoredTextBox1.Zoom = 100;
             fastColoredTextBox1.TextChanged += fastColoredTextBox_TextChanged_1;
@@ -589,7 +520,7 @@ namespace TranslateTool
             // viewToolStripMenuItem
             // 
             viewToolStripMenuItem.BackColor = Color.Transparent;
-            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { expandToolStripMenuItem, alwaysOnTopToolStripMenuItem, webViewControlsToolStripMenuItem });
+            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { expandToolStripMenuItem, alwaysOnTopToolStripMenuItem });
             viewToolStripMenuItem.ForeColor = Color.LightGray;
             viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             viewToolStripMenuItem.Size = new Size(44, 20);
@@ -602,7 +533,7 @@ namespace TranslateTool
             expandToolStripMenuItem.Name = "expandToolStripMenuItem";
             expandToolStripMenuItem.ShortcutKeyDisplayString = "";
             expandToolStripMenuItem.ShortcutKeys = Keys.F11;
-            expandToolStripMenuItem.Size = new Size(174, 22);
+            expandToolStripMenuItem.Size = new Size(180, 22);
             expandToolStripMenuItem.Text = "Expand";
             expandToolStripMenuItem.Click += expandToolStripMenuItem_Click;
             // 
@@ -611,18 +542,9 @@ namespace TranslateTool
             alwaysOnTopToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
             alwaysOnTopToolStripMenuItem.ForeColor = Color.LightGray;
             alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-            alwaysOnTopToolStripMenuItem.Size = new Size(174, 22);
+            alwaysOnTopToolStripMenuItem.Size = new Size(180, 22);
             alwaysOnTopToolStripMenuItem.Text = "Always on Top";
             alwaysOnTopToolStripMenuItem.Click += alwaysOnTopToolStripMenuItem_Click;
-            // 
-            // webViewControlsToolStripMenuItem
-            // 
-            webViewControlsToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
-            webViewControlsToolStripMenuItem.ForeColor = Color.LightGray;
-            webViewControlsToolStripMenuItem.Name = "webViewControlsToolStripMenuItem";
-            webViewControlsToolStripMenuItem.Size = new Size(174, 22);
-            webViewControlsToolStripMenuItem.Text = "Web View Controls";
-            webViewControlsToolStripMenuItem.Click += webViewControlsToolStripMenuItem_Click;
             // 
             // settingsToolStripMenuItem
             // 
@@ -861,6 +783,34 @@ namespace TranslateTool
             searchToolStripMenuItem1.Text = "Search on Internet";
             searchToolStripMenuItem1.Click += searchToolStripMenuItem1_Click;
             // 
+            // richTextBox1
+            // 
+            richTextBox1.AcceptsTab = true;
+            richTextBox1.AccessibleDescription = "";
+            richTextBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            richTextBox1.AutoWordSelection = true;
+            richTextBox1.BackColor = SystemColors.ControlDark;
+            richTextBox1.BorderStyle = BorderStyle.FixedSingle;
+            richTextBox1.Font = new Font("Segoe UI", 19F, FontStyle.Regular, GraphicsUnit.Point);
+            richTextBox1.Location = new Point(12, 375);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(876, 125);
+            richTextBox1.TabIndex = 35;
+            richTextBox1.Text = "";
+            // 
+            // webView21
+            // 
+            webView21.AllowExternalDrop = true;
+            webView21.CreationProperties = null;
+            webView21.DefaultBackgroundColor = Color.White;
+            webView21.Enabled = false;
+            webView21.Location = new Point(520, 407);
+            webView21.Name = "webView21";
+            webView21.Size = new Size(37, 23);
+            webView21.TabIndex = 36;
+            webView21.Visible = false;
+            webView21.ZoomFactor = 1D;
+            // 
             // Form1
             // 
             AccessibleDescription = "";
@@ -869,22 +819,20 @@ namespace TranslateTool
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(900, 532);
+            Controls.Add(richTextBox1);
             Controls.Add(label2);
             Controls.Add(fastColoredTextBox1);
             Controls.Add(button14);
-            Controls.Add(button13);
-            Controls.Add(button11);
             Controls.Add(label1);
             Controls.Add(button9);
             Controls.Add(button8);
-            Controls.Add(button7);
-            Controls.Add(webView21);
             Controls.Add(button6);
             Controls.Add(button5);
             Controls.Add(textBox1);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(menuStrip1);
+            Controls.Add(webView21);
             ForeColor = Color.FromArgb(64, 64, 64);
             Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
@@ -894,11 +842,11 @@ namespace TranslateTool
             Text = "LUA Translate Tool";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
-            ((ISupportInitialize)webView21).EndInit();
             ((ISupportInitialize)fastColoredTextBox1).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             contextMenuStrip1.ResumeLayout(false);
+            ((ISupportInitialize)webView21).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -909,7 +857,6 @@ namespace TranslateTool
         private TextBox textBox1;
         public Button button5;
         public Button button6;
-        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
         public Button button7;
         public Button button8;
         public Button button9;
@@ -973,5 +920,7 @@ namespace TranslateTool
         private ToolStripMenuItem toolStripMenuItem7;
         private ToolStripMenuItem toolStripMenuItem5;
         private ToolStripMenuItem colorToolStripMenuItem;
+        private RichTextBox richTextBox1;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
     }
 }
