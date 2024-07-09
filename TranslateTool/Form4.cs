@@ -55,7 +55,7 @@ namespace LUATranslateTool
                     e.Cancel = true;
                     break;
                 }
-                await Task.Delay(50);
+                await Task.Delay(200);
                 if (isRunning)
                 {
                     this.Invoke(new Action(() => form1.button9.PerformClick()));
@@ -65,7 +65,7 @@ namespace LUATranslateTool
                     e.Cancel = true;
                     break;
                 }
-                await Task.Delay(100);
+                await Task.Delay(200);
                 if (isRunning)
                 {
                     this.Invoke(new Action(() => form1.button2.PerformClick()));
@@ -76,7 +76,7 @@ namespace LUATranslateTool
                     e.Cancel = true;
                     break;
                 }
-                await form1.navigationCompletedTask.Task;
+
                 await Task.Delay(macroDelay * 1000);
                 if (isRunning)
                 {

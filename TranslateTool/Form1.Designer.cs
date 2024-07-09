@@ -904,7 +904,6 @@ namespace TranslateTool
         private ToolStripMenuItem autoTranslateToolStripMenuItem;
         private ToolStripMenuItem updateStripMenuItem;
         private ToolStripMenuItem alwaysOnTopToolStripMenuItem;
-        private ToolStripMenuItem webViewControlsToolStripMenuItem;
         private Label label2;
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem cutToolStripMenuItem1;

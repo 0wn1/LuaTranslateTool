@@ -14,6 +14,12 @@ namespace TranslateTool
         public Form1()
         {
             InitializeComponent();
+            ToggleWebView21(true);
+            string targetLang = textBox1.Text;
+            string url = $"https://translate.google.com.br/?sl=auto&tl={targetLang}&text={WebUtility.UrlEncode(fastColoredTextBox1.SelectedText)}&op=translate";
+            webView21.Source = new Uri(url);
+            button14.Enabled = true;
+            webView21.EnsureCoreWebView2Async();
         }
         private void Form1_FormClosing(object? sender, FormClosingEventArgs e)
         {
@@ -21,11 +27,6 @@ namespace TranslateTool
             {
                 e.Cancel = true;
             }
-        }
-        private void WebView21_NavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
-        {
-            navigationCompletedTask.TrySetResult(true);
-            RemoveElement();
         }
         private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
         {
@@ -43,7 +44,6 @@ namespace TranslateTool
             fastColoredTextBox1.SelectionChangedDelayed += fastColoredTextBox_SelectionChanged;
             SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
             fastColoredTextBox1.TextChanged += fastColoredTextBox_TextChanged_1;
-            webView21.NavigationCompleted += WebView21_NavigationCompleted;
             navigationCompletedTask = new TaskCompletionSource<bool>();
             Directory.CreateDirectory(tempPath);
             textBox1.Text = language;
@@ -75,26 +75,26 @@ namespace TranslateTool
         }
         private async void button2_Click(object sender, EventArgs e)
         {
-            ToggleWebView21(true);
+            //ToggleWebView21(true);
             string targetLang = textBox1.Text;
             string url = $"https://translate.google.com.br/?sl=auto&tl={targetLang}&text={WebUtility.UrlEncode(fastColoredTextBox1.SelectedText)}&op=translate";
             webView21.Source = new Uri(url);
             button14.Enabled = true;
-
-            await webView21.EnsureCoreWebView2Async();
-
+            //await webView21.EnsureCoreWebView2Async();
             string script = @"
-    function getTranslatedText() {
-        const element = document.querySelector('.eDXd3b');
-        return element ? element.textContent : '';
+function getTranslatedText() {
+    const element = document.querySelector('.eDXd3b');
+    if (element) {
+        return element.textContent;
     }
-    getTranslatedText();
-    ";
-
+    const altElement = document.querySelector('.HwtZe');
+    return altElement ? altElement.textContent : '';
+}
+getTranslatedText();
+";
             string result = "";
             int attempts = 0;
             const int maxAttempts = 10;
-
             while (string.IsNullOrWhiteSpace(result) && attempts < maxAttempts)
             {
                 await Task.Delay(200);
@@ -102,10 +102,13 @@ namespace TranslateTool
                 result = result.Trim('"');
                 attempts++;
             }
-
             if (!string.IsNullOrWhiteSpace(result))
             {
                 richTextBox1.Text = result;
+            }
+            else
+            {
+                richTextBox1.Text = fastColoredTextBox1.SelectedText;
             }
         }
         private void button3_Click(object sender, EventArgs e)
@@ -267,10 +270,6 @@ namespace TranslateTool
                 fastColoredTextBox1.Selection.End = fastColoredTextBox1.PositionToPlace(index + value.Length);
                 fastColoredTextBox1.DoCaretVisible();
             }
-        }
-        private async void RemoveElement()
-        {
-            await webView21.ExecuteScriptAsync("var element = document.querySelector('header#gb>div:nth-of-type(2)');" + "if (element) {element.remove();}");
         }
         private void button13_Click(object sender, EventArgs e)
         {
@@ -621,22 +620,6 @@ namespace TranslateTool
                 alwaysOnTopToolStripMenuItem.Checked = false;
             }
             this.TopMost = alwaysOnTopToolStripMenuItem.Checked;
-        }
-
-        private void webViewControlsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!webViewControlsToolStripMenuItem.Checked)
-            {
-                button13.Visible = true;
-                button7.Visible = true;
-                webViewControlsToolStripMenuItem.Checked = true;
-            }
-            else
-            {
-                button13.Visible = false;
-                button7.Visible = false;
-                webViewControlsToolStripMenuItem.Checked = false;
-            }
         }
 
         private void fastColoredTextBox1_MouseClick(object sender, MouseEventArgs e)
