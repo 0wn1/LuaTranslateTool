@@ -94,11 +94,9 @@ namespace TranslateTool
             openFileToolStripMenuItem = new ToolStripMenuItem();
             searchToolStripMenuItem1 = new ToolStripMenuItem();
             richTextBox1 = new RichTextBox();
-            webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
             ((ISupportInitialize)fastColoredTextBox1).BeginInit();
             menuStrip1.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
-            ((ISupportInitialize)webView21).BeginInit();
             SuspendLayout();
             // 
             // button2
@@ -779,19 +777,6 @@ namespace TranslateTool
             richTextBox1.TabIndex = 35;
             richTextBox1.Text = "";
             // 
-            // webView21
-            // 
-            webView21.AllowExternalDrop = true;
-            webView21.CreationProperties = null;
-            webView21.DefaultBackgroundColor = Color.White;
-            webView21.Enabled = false;
-            webView21.Location = new Point(520, 407);
-            webView21.Name = "webView21";
-            webView21.Size = new Size(37, 23);
-            webView21.TabIndex = 36;
-            webView21.Visible = false;
-            webView21.ZoomFactor = 1D;
-            // 
             // Form1
             // 
             AccessibleDescription = "";
@@ -812,7 +797,6 @@ namespace TranslateTool
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(menuStrip1);
-            Controls.Add(webView21);
             ForeColor = Color.FromArgb(64, 64, 64);
             Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
@@ -826,7 +810,6 @@ namespace TranslateTool
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             contextMenuStrip1.ResumeLayout(false);
-            ((ISupportInitialize)webView21).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -880,7 +863,7 @@ namespace TranslateTool
         private ToolStripMenuItem stopMacroStripMenuItem;
         private ToolStripMenuItem expandToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem2;
-        private ToolStripMenuItem autoTranslateToolStripMenuItem;
+        public ToolStripMenuItem autoTranslateToolStripMenuItem;
         private ToolStripMenuItem updateStripMenuItem;
         private ToolStripMenuItem alwaysOnTopToolStripMenuItem;
         private Label label2;
@@ -899,6 +882,5 @@ namespace TranslateTool
         private ToolStripMenuItem toolStripMenuItem5;
         private ToolStripMenuItem colorToolStripMenuItem;
         private RichTextBox richTextBox1;
-        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
     }
 }

@@ -1,24 +1,22 @@
 using LUATranslateTool;
-using Microsoft.Web.WebView2.Core;
-using Microsoft.Win32;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Diagnostics;
-using System.Globalization;
-using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace TranslateTool
 {
     public partial class Form1 : Form
     {
+        private HttpClient _httpClient;
         System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
         public Form1()
         {
             InitializeComponent();
-            ToggleWebView21(true);
             string targetLang = textBox1.Text;
-            string url = $"https://translate.google.com.br/?sl=auto&tl={targetLang}&text={WebUtility.UrlEncode(fastColoredTextBox1.SelectedText)}&op=translate";
-            webView21.Source = new Uri(url);
-            webView21.EnsureCoreWebView2Async();
+            _httpClient = new HttpClient();
+            _httpClient.BaseAddress = new Uri("https://translate.googleapis.com/");
         }
         private void Form1_FormClosing(object? sender, FormClosingEventArgs e)
         {
@@ -27,13 +25,7 @@ namespace TranslateTool
                 e.Cancel = true;
             }
         }
-        private void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
-        {
-            if (e.Category == UserPreferenceCategory.Locale)
-            {
-                textBox1.Text = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-            }
-        }
+       
         private void Form1_Load(object sender, EventArgs e)
         {
             ToolTip toolTip1 = new ToolTip();
@@ -41,7 +33,6 @@ namespace TranslateTool
             menuStrip1.Renderer = new menuStripRenderer();
             fastColoredTextBox1.Selection = new FastColoredTextBoxNS.Range(fastColoredTextBox1);
             fastColoredTextBox1.SelectionChangedDelayed += fastColoredTextBox_SelectionChanged;
-            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
             fastColoredTextBox1.TextChanged += fastColoredTextBox_TextChanged_1;
             navigationCompletedTask = new TaskCompletionSource<bool>();
             Directory.CreateDirectory(tempPath);
@@ -64,46 +55,75 @@ namespace TranslateTool
             button9.Enabled = false;
 
         }
-        private void ToggleWebView21(bool value)
+
+        private async Task<string> Translate(string text, string sourceLanguageCode, string targetLanguageCode)
         {
-            if (webView21.Visible != value)
+            string jsonResultString;
+            try
             {
-                webView21.Visible = value;
+                var url = $"translate_a/single?client=gtx&sl={sourceLanguageCode}&tl={targetLanguageCode}&dt=t&q={Uri.EscapeDataString(text)}";
+                var result = await _httpClient.GetAsync(url);
+                var bytes = await result.Content.ReadAsByteArrayAsync();
+                jsonResultString = Encoding.UTF8.GetString(bytes).Trim();
+                if (!result.IsSuccessStatusCode)
+                {
+                    return $"Error: {jsonResultString}";
+                }
             }
+            catch (Exception ex)
+            {
+                return $"Error: {ex.Message}";
+            }
+            var resultList = ConvertJsonObjectToStringLines(jsonResultString);
+            return string.Join(Environment.NewLine, resultList);
+        }
+
+        private List<string> ConvertJsonObjectToStringLines(string jsonString)
+        {
+            var result = new List<string>();
+            try
+            {
+                var jsonArray = JsonConvert.DeserializeObject<dynamic>(jsonString);
+                if (jsonArray != null && jsonArray?.Count > 0)
+                {
+                    var translations = jsonArray?[0];
+                    if (translations != null) {
+                        foreach (var item in translations)
+                        {
+                            if (item.Count > 0 && item[0].Type == JTokenType.String)
+                            {
+                                result.Add(item[0].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (JsonException ex)
+            {
+                Console.WriteLine($"Error parsing JSON: {ex.Message}");
+                result.Add($"Error parsing JSON: {jsonString}");
+            }
+            return result;
         }
         private async void button2_Click(object sender, EventArgs e)
         {
             string targetLang = textBox1.Text;
-            string url = $"https://translate.google.com.br/?sl=auto&tl={targetLang}&text={WebUtility.UrlEncode(fastColoredTextBox1.SelectedText)}&op=translate";
-            webView21.Source = new Uri(url);
-            string script = @"
-            function getTranslatedText() {
-                const element = document.querySelector('.eDXd3b');
-                if (element) {
-                    return element.textContent;
-                }
-                const altElement = document.querySelector('.HwtZe');
-                return altElement ? altElement.textContent : '';
-            }
-            getTranslatedText();
-            ";
-            string result = "";
-            int attempts = 0;
-            const int maxAttempts = 10;
-            while (string.IsNullOrWhiteSpace(result) && attempts < maxAttempts)
+            string sourceText = fastColoredTextBox1.SelectedText;
+
+            if (string.IsNullOrWhiteSpace(sourceText))
             {
-                await Task.Delay(200);
-                result = await webView21.ExecuteScriptAsync(script);
-                result = result.Trim('"');
-                attempts++;
+                richTextBox1.Text = "No text selected for translation.";
+                return;
             }
+            string result = await Translate(sourceText, "auto", targetLang);
+
             if (!string.IsNullOrWhiteSpace(result))
             {
                 richTextBox1.Text = result;
             }
             else
             {
-                richTextBox1.Text = fastColoredTextBox1.SelectedText;
+                richTextBox1.Text = "Translation failed or returned empty result.";
             }
         }
         private void button3_Click(object sender, EventArgs e)
@@ -140,9 +160,27 @@ namespace TranslateTool
         {
             if (fastColoredTextBox1.SelectionLength > 0)
             {
+                int maxAttempts = 10;
+                int attempts = 0;
+                while (string.IsNullOrWhiteSpace(richTextBox1.Text) && attempts < maxAttempts)
+                {
+                    await Task.Delay(1000);
+                    attempts++;
+                }
+
+                if (string.IsNullOrWhiteSpace(richTextBox1.Text))
+                {
+                    MessageBox.Show("Timeout: Response time has exceeded the limit.");
+                    return;
+                }
+
                 string richTextBoxContent = richTextBox1.Text;
+                richTextBoxContent = string.Join(" ", richTextBoxContent
+                    .Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None)
+                    .Select(line => line.Trim())
+                    .Where(line => !string.IsNullOrWhiteSpace(line)));
+
                 fastColoredTextBox1.SelectedText = richTextBoxContent;
-                await Task.Delay(100);
             }
         }
         private void button5_Click(object sender, EventArgs e)
@@ -264,13 +302,6 @@ namespace TranslateTool
                 fastColoredTextBox1.Selection.Start = fastColoredTextBox1.PositionToPlace(index);
                 fastColoredTextBox1.Selection.End = fastColoredTextBox1.PositionToPlace(index + value.Length);
                 fastColoredTextBox1.DoCaretVisible();
-            }
-        }
-        private void button13_Click(object sender, EventArgs e)
-        {
-            if (!webView21.IsDisposed)
-            {
-                webView21.Reload();
             }
         }
         private void newProjectToolStripMenuItem_Click_1(object sender, EventArgs e)

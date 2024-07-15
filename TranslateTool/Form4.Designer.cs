@@ -85,9 +85,9 @@ namespace LUATranslateTool
             numericUpDown2.ForeColor = Color.LightGray;
             resources.ApplyResources(numericUpDown2, "numericUpDown2");
             numericUpDown2.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
-            numericUpDown2.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+            numericUpDown2.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Value = new decimal(new int[] { 2, 0, 0, 0 });
+            numericUpDown2.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // button1
             // 
@@ -102,8 +102,10 @@ namespace LUATranslateTool
             // 
             // Form4
             // 
+            AllowDrop = true;
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
+            AutoValidate = AutoValidate.EnablePreventFocusChange;
             BackColor = Color.FromArgb(64, 64, 64);
             CancelButton = button2;
             ControlBox = false;
@@ -117,9 +119,9 @@ namespace LUATranslateTool
             MaximizeBox = false;
             Name = "Form4";
             ShowIcon = false;
-            ShowInTaskbar = false;
-            TopMost = true;
             FormClosing += Form4_FormClosing;
+            FormClosed += Form4_FormClosed;
+            Load += Form4_Load;
             ((ISupportInitialize)numericUpDown1).EndInit();
             ((ISupportInitialize)numericUpDown2).EndInit();
             ResumeLayout(false);

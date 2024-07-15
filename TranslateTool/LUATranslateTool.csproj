@@ -8,7 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPublishable>True</IsPublishable>
     <ApplicationIcon>icon.ico</ApplicationIcon>
-    <Version>1.1.6</Version>
+    <Version>1.1.7</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <PackageReference Include="FastColoredTextBox.Net6" Version="1.0.0" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1661.34" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 

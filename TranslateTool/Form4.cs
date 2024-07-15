@@ -5,6 +5,7 @@ namespace LUATranslateTool
 {
     public partial class Form4 : Form
     {
+        public bool macroOpen = false;
         public Form4()
         {
             InitializeComponent();
@@ -129,6 +130,18 @@ namespace LUATranslateTool
                 button2.Enabled = true;
                 button1.Text = "Run";
             }
+        }
+
+        private void Form4_Load(object sender, EventArgs e)
+        {
+            Form1 form1 = (Form1)Application.OpenForms["Form1"];
+            form1.autoTranslateToolStripMenuItem.Enabled = false;
+        }
+
+        private void Form4_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Form1 form1 = (Form1)Application.OpenForms["Form1"];
+            form1.autoTranslateToolStripMenuItem.Enabled = true;
         }
     }
 }
