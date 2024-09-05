@@ -5,7 +5,7 @@ This is a simple tool for translating Lua files using Google Translate. The tool
 
 ------------
 ### Preview
-Streamable:  [View](https://streamable.com/khmjql "View")
+Streamable:  [View](https://streamable.com/q9e98r "View")
 
 ------------
 ### Requisites

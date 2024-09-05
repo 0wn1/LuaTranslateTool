@@ -11,6 +11,7 @@ namespace TranslateTool
     {
         private HttpClient _httpClient;
         System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+        string regex = @"(?<=[:=]\s*(['""]))((?:\\.|\1\1|(?!\1).)*?)(?=\1)";
         public Form1()
         {
             InitializeComponent();
@@ -214,15 +215,6 @@ namespace TranslateTool
                 toolStripMenuItem1.Enabled = true;
                 goToToolStripMenuItem.Enabled = true;
                 autoTranslateToolStripMenuItem.Enabled = true;
-
-                string fileName = $"backup_{DateTime.Now.ToString("HH_mm_dd_MM_yyyy")}.lua";
-                File.WriteAllText(Path.Combine(tempPath, fileName), fastColoredTextBox1.Text);
-
-                if ((DateTime.Now - lastBackupTime).TotalMinutes > 2)
-                {
-                    lastBackupTime = DateTime.Now;
-                    File.WriteAllText(Path.Combine(tempPath, fileName), fastColoredTextBox1.Text);
-                }
             }
             else
             {
@@ -268,13 +260,12 @@ namespace TranslateTool
                 }
             };
         }
-        string pattern = @"(?<=\=\s*(['""]))((?:\\.|\1\1|(?!\1).)*?)(?=\1)";
         private void button8_Click(object sender, EventArgs e)
         {
             try
             {
                 int searchStart = fastColoredTextBox1.SelectionStart;
-                MatchCollection matches = Regex.Matches(fastColoredTextBox1.Text.Substring(0, searchStart), pattern);
+                MatchCollection matches = Regex.Matches(fastColoredTextBox1.Text.Substring(0, searchStart), regex);
                 if (matches.Count > 0)
                 {
                     Match match = matches[matches.Count - 1];
@@ -294,7 +285,7 @@ namespace TranslateTool
         private void button9_Click(object sender, EventArgs e)
         {
             int searchStart = fastColoredTextBox1.SelectionStart;
-            Match match = Regex.Match(fastColoredTextBox1.Text.Substring(searchStart), pattern);
+            Match match = Regex.Match(fastColoredTextBox1.Text.Substring(searchStart), regex);
             if (match.Success)
             {
                 int index = searchStart + match.Index;
@@ -330,35 +321,46 @@ namespace TranslateTool
         {
             System.Windows.Forms.SaveFileDialog saveFileDialog1 = new System.Windows.Forms.SaveFileDialog
             {
-                Filter = "Lua File|*.lua",
-                Title = "Save Lua File"
+                Filter = "Lua and JSON Files|*.lua;*.json|All Files|*.*",
+                Title = "Save File",
+                DefaultExt = "lua",
+                AddExtension = true
             };
-            saveFileDialog1.ShowDialog();
-            if (saveFileDialog1.FileName != "")
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                using (StreamWriter sw = new StreamWriter(saveFileDialog1.OpenFile()))
+                string fileName = saveFileDialog1.FileName;
+                string extension = Path.GetExtension(fileName).ToLower();
+
+                if (string.IsNullOrEmpty(extension))
+                {
+                    fileName += ".lua";
+                }
+                else if (extension != ".lua" && extension != ".json")
+                {
+                    MessageBox.Show("Invalid file extension. Please use .lua or .json", "Invalid Extension", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                using (StreamWriter sw = new StreamWriter(fileName))
                 {
                     sw.Write(fastColoredTextBox1.Text);
                 }
+
                 MessageBox.Show("File successfully saved!");
-                openFileDialog1.FileName = saveFileDialog1.FileName;
-                string argument = "/select, \"" + saveFileDialog1.FileName + "\"";
+                openFileDialog1.FileName = fileName;
+                string argument = "/select, \"" + fileName + "\"";
                 Process.Start("explorer.exe", argument);
             }
         }
 
         public void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = "Lua File|*.lua";
-            openFileDialog1.Title = "Select Lua file";
+            openFileDialog1.Filter = "Lua and JSON Files|*.lua;*.json|Lua Files|*.lua|JSON Files|*.json";
+            openFileDialog1.Title = "Select Lua or JSON file";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                fastColoredTextBox1.Text = "";
-                string[] luaTextLines = File.ReadAllLines(openFileDialog1.FileName);
-                foreach (string line in luaTextLines)
-                {
-                    fastColoredTextBox1.AppendText(line + "\n");
-                }
+                fastColoredTextBox1.Text = File.ReadAllText(openFileDialog1.FileName);
                 fastColoredTextBox1.ClearUndo();
                 richTextBox1.Text = "";
             }
